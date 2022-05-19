@@ -1,0 +1,995 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Initialize_Applications" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/cv" xmlns:p1="http://schemas.uipath.com/workflow/activities/ocr" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:uc="clr-namespace:UiPath.CV;assembly=UiPath.CV" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_read_PLANILHA" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="Dia" Type="OutArgument(x:String)" />
+    <x:Property Name="Mês" Type="OutArgument(x:String)" />
+    <x:Property Name="Ano" Type="OutArgument(x:String)" />
+    <x:Property Name="out_DIR_PATH" Type="OutArgument(x:String)" />
+    <x:Property Name="out_Dir_Data" Type="OutArgument(x:String)" />
+    <x:Property Name="out_Data_Aba" Type="OutArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1240,2456</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Initialization_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="39">
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Management.Automation</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Globalization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.CV</x:String>
+      <x:String>UiPath.Shared.ObjectLibrary</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>UiPath.CV.Activities</x:String>
+      <x:String>UiPath.CV.Activities.Interfaces</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Management.Automation</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>TimeSpan2</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.CV.Activities</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Open applications used in the process and do necessary initialization procedures (e.g., login)." DisplayName="Initialize All Applications" sap:VirtualizedContainerService.HintSize="1011,2391" sap2010:WorkflowViewState.IdRef="Sequence_9">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="G:\My Drive\UIPATH\COMPARTILHADO-CENTAURO\PRODUÇÃO\FISCAL\EMISSAO_GUIAS_PAGAMENTO\PARCELAMENTOS\PR" Name="v_DIR_PLANILHA" />
+      <Variable x:TypeArguments="x:Boolean" Name="v_PLANILHA_EXISTE" />
+      <Variable x:TypeArguments="x:String" Name="out_DIR_PATH" />
+      <Variable x:TypeArguments="x:String" Name="out_Dir_Data" />
+      <Variable x:TypeArguments="x:String" Name="out_Data_Aba" />
+      <Variable x:TypeArguments="x:Boolean" Name="v_PATH_EXIST" />
+      <Variable x:TypeArguments="x:Boolean" Name="v_FILE_EXIST" />
+      <Variable x:TypeArguments="x:String" Name="Ano" />
+      <Variable x:TypeArguments="x:String" Name="Mês" />
+      <Variable x:TypeArguments="x:String" Name="Dia" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log message (Initialize applications)" sap:VirtualizedContainerService.HintSize="969,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Opening applications...&quot;]" />
+    <Flowchart DisplayName="Verifica se Planilha Existe" sap:VirtualizedContainerService.HintSize="969,873" sap2010:WorkflowViewState.IdRef="Flowchart_3">
+      <Flowchart.Variables>
+        <Variable x:TypeArguments="x:Boolean" Name="Path_exists" />
+      </Flowchart.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+          <av:Size x:Key="ShapeSize">60,75</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,104.5</av:PointCollection>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <x:Double x:Key="Width">935.40606823557982</x:Double>
+          <x:Double x:Key="Height">836.73301151015971</x:Double>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Flowchart.StartNode>
+        <x:Reference>__ReferenceID11</x:Reference>
+      </Flowchart.StartNode>
+      <FlowStep>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">580,81</av:Point>
+            <av:Size x:Key="ShapeSize">200,198</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:PathExists sap2010:Annotation.AnnotationText="Verifica se Existe a planilha do parcelamento do PR que está no caminho G:\My Drive\UIPATH\COMPARTILHADO-CENTAURO\PRODUÇÃO\FISCAL\EMISSAO_GUIAS_PAGAMENTO\PARCELAMENTOS\PR\PARCELAMENTO_PR.xlsx" DisplayName="1 - Verifica se a planilha existe" Exists="[v_PLANILHA_EXISTE]" sap:VirtualizedContainerService.HintSize="200,198" sap2010:WorkflowViewState.IdRef="PathExists_3" Path="[v_DIR_PLANILHA+&quot;\&quot;+&quot;PARCELAMENTO_PR.xlsx&quot;]" PathType="File">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:PathExists>
+      </FlowStep>
+      <FlowStep>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">640,324.5</av:Point>
+            <av:Size x:Key="ShapeSize">200,51</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Flowchart sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="Flowchart_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+              <av:Size x:Key="ShapeSize">60,75</av:Size>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Flowchart.StartNode>
+            <x:Null />
+          </Flowchart.StartNode>
+        </Flowchart>
+      </FlowStep>
+      <FlowStep x:Name="__ReferenceID11">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">200,104.5</av:Point>
+            <av:Size x:Key="ShapeSize">200,51</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,155.5 300,184.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Flowchart DisplayName="Criar Diretorio e Copiar Planilha Layout" sap:VirtualizedContainerService.HintSize="674,636" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+              <av:Size x:Key="ShapeSize">60,75</av:Size>
+              <av:PointCollection x:Key="ConnectorLocation">270,40 270,104.5 300,104.5</av:PointCollection>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              <x:Double x:Key="Width">640</x:Double>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Flowchart.StartNode>
+            <x:Reference>__ReferenceID7</x:Reference>
+          </Flowchart.StartNode>
+          <FlowStep x:Name="__ReferenceID1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:Point x:Key="ShapeLocation">200,184.5</av:Point>
+                <av:Size x:Key="ShapeSize">200,51</av:Size>
+                <av:PointCollection x:Key="ConnectorLocation">300,236.5 300,276.5</av:PointCollection>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:PathExists DisplayName="Diretorio Existe?" Exists="[v_PATH_EXIST]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[out_DIR_PATH+out_Dir_Data]" PathType="Folder">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:PathExists>
+            <FlowStep.Next>
+              <FlowDecision x:Name="__ReferenceID2" Condition="[v_PATH_EXIST]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <av:Point x:Key="ShapeLocation">260.5,276.5</av:Point>
+                    <av:Size x:Key="ShapeSize">79,87</av:Size>
+                    <av:PointCollection x:Key="FalseConnector">339.5,320 390,320</av:PointCollection>
+                    <av:PointCollection x:Key="TrueConnector">260.5,320 190,320 190,410 220,410</av:PointCollection>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <FlowDecision.True>
+                  <FlowStep x:Name="__ReferenceID0">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <av:Point x:Key="ShapeLocation">220,384</av:Point>
+                        <av:Size x:Key="ShapeSize">200,51</av:Size>
+                        <av:PointCollection x:Key="ConnectorLocation">320,435 320,456.5</av:PointCollection>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:PathExists DisplayName="File  Existe?" Exists="[v_FILE_EXIST]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="PathExists_2" Path="[out_DIR_PATH+out_Dir_Data+&quot;Planilha_&quot;+Mês+&quot;.xlsx&quot;]" PathType="File">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:PathExists>
+                    <FlowStep.Next>
+                      <FlowDecision x:Name="__ReferenceID4" Condition="[v_FILE_EXIST]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <av:Point x:Key="ShapeLocation">280.5,456.5</av:Point>
+                            <av:Size x:Key="ShapeSize">79,87</av:Size>
+                            <av:PointCollection x:Key="FalseConnector">359.5,500 400,500</av:PointCollection>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <FlowDecision.False>
+                          <FlowStep x:Name="__ReferenceID5">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <av:Point x:Key="ShapeLocation">400,474</av:Point>
+                                <av:Size x:Key="ShapeSize">200,51</av:Size>
+                                <av:PointCollection x:Key="ConnectorLocation">500,525 500,575</av:PointCollection>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:CopyFile ContinueOnError="True" Destination="[out_DIR_PATH+out_Dir_Data+&quot;Planilha_&quot;+Mês+&quot;.xlsx&quot;]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="False" Path="[out_DIR_PATH+&quot;\PLANILHA\PARCELAMENTO_PR.xlsx&quot;]">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </ui:CopyFile>
+                            <FlowStep.Next>
+                              <FlowStep x:Name="__ReferenceID6">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <av:Point x:Key="ShapeLocation">400,575</av:Point>
+                                    <av:Size x:Key="ShapeSize">200,22</av:Size>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Delay Duration="00:00:10" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Delay_2">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </Delay>
+                              </FlowStep>
+                            </FlowStep.Next>
+                          </FlowStep>
+                        </FlowDecision.False>
+                      </FlowDecision>
+                    </FlowStep.Next>
+                  </FlowStep>
+                </FlowDecision.True>
+                <FlowDecision.False>
+                  <FlowStep x:Name="__ReferenceID3">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <av:Point x:Key="ShapeLocation">390,286</av:Point>
+                        <av:Size x:Key="ShapeSize">200,66</av:Size>
+                        <av:PointCollection x:Key="ConnectorLocation">490,352 490,409.5 420,409.5</av:PointCollection>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Sequence DisplayName="Cria Dir " sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="334,79" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[out_DIR_PATH+out_Dir_Data]" />
+                    </Sequence>
+                    <FlowStep.Next>
+                      <x:Reference>__ReferenceID0</x:Reference>
+                    </FlowStep.Next>
+                  </FlowStep>
+                </FlowDecision.False>
+              </FlowDecision>
+            </FlowStep.Next>
+          </FlowStep>
+          <FlowStep x:Name="__ReferenceID7">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:Point x:Key="ShapeLocation">200,104.5</av:Point>
+                <av:Size x:Key="ShapeSize">200,51</av:Size>
+                <av:PointCollection x:Key="ConnectorLocation">300,155.5 300,184.5</av:PointCollection>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:MultipleAssign DisplayName="Declarar VarIaveis(Multiple Assign)" sap:VirtualizedContainerService.HintSize="334,253" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+              <ui:MultipleAssign.AssignOperations>
+                <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">[Dia]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">[now.tostring("dd")]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">[Mês]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">[datetime.now.tostring("MMMM", new system.Globalization.CultureInfo("pt-PT")).ToUpper]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">[Ano]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">[now.tostring("yyyy")]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">[out_DIR_PATH]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">G:\My Drive\UIPATH\COMPARTILHADO-CENTAURO\PRODUÇÃO\FISCAL\EMISSAO_GUIAS_PAGAMENTO\PARCELAMENTOS\PR\</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">[out_Dir_Data]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">[Ano+"\"+Mês+"\PDF\"]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">[out_Data_Aba]</OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">[now.tostring("dd.MM.yyyy")]</InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                </scg:List>
+              </ui:MultipleAssign.AssignOperations>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:MultipleAssign>
+            <FlowStep.Next>
+              <x:Reference>__ReferenceID1</x:Reference>
+            </FlowStep.Next>
+          </FlowStep>
+          <x:Reference>__ReferenceID2</x:Reference>
+          <x:Reference>__ReferenceID3</x:Reference>
+          <x:Reference>__ReferenceID4</x:Reference>
+          <x:Reference>__ReferenceID0</x:Reference>
+          <x:Reference>__ReferenceID5</x:Reference>
+          <FlowStep>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:Point x:Key="ShapeLocation">0,34.5</av:Point>
+                <av:Size x:Key="ShapeSize">200,51</av:Size>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[Mês.ToString]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:MessageBox>
+          </FlowStep>
+          <FlowStep>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:Point x:Key="ShapeLocation">0,164.5</av:Point>
+                <av:Size x:Key="ShapeSize">200,51</av:Size>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[out_DIR_PATH+out_Dir_Data+&quot;Planilha_&quot;+Mês+&quot;.xlsx&quot;]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:MessageBox>
+          </FlowStep>
+          <x:Reference>__ReferenceID6</x:Reference>
+        </Flowchart>
+        <FlowStep.Next>
+          <FlowStep x:Name="__ReferenceID9">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:Point x:Key="ShapeLocation">200,184.5</av:Point>
+                <av:Size x:Key="ShapeSize">200,51</av:Size>
+                <av:PointCollection x:Key="ConnectorLocation">300,235.5 300,285.5</av:PointCollection>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:PathExists DisplayName="Path Exists" Exists="[Path_exists]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="PathExists_4" Path="[out_DIR_PATH+out_Dir_Data+&quot;Planilha_&quot;+Mês+&quot;.xlsx&quot;]" PathType="File">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:PathExists>
+            <FlowStep.Next>
+              <FlowStep x:Name="__ReferenceID10">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <av:Point x:Key="ShapeLocation">200,285.5</av:Point>
+                    <av:Size x:Key="ShapeSize">200,22</av:Size>
+                    <av:PointCollection x:Key="ConnectorLocation">300,307.5 300,341</av:PointCollection>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Delay Duration="00:00:05" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Delay_1">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Delay>
+                <FlowStep.Next>
+                  <FlowStep x:Name="__ReferenceID8">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <av:Point x:Key="ShapeLocation">200,341</av:Point>
+                        <av:Size x:Key="ShapeSize">200,198</av:Size>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="5 - Le a planilha Parcelamento do PR que está no caminho G:\My Drive\UIPATH\COMPARTILHADO-CENTAURO\PRODUÇÃO\FISCAL\EMISSAO_GUIAS_PAGAMENTO\PARCELAMENTOS\PR\PARCELAMENTO_PR.xlsx" AutoSave="False" CreateNewFile="False" DisplayName="5 -Lê Planilha PR" sap:VirtualizedContainerService.HintSize="200,198" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" Visible="False" WorkbookPath="[out_DIR_PATH+out_Dir_Data+&quot;Planilha_&quot;+Mês+&quot;.xlsx&quot;]">
+                      <ui:ExcelApplicationScope.Body>
+                        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,242" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:ExcelReadRange AddHeaders="True" DataTable="[in_read_PLANILHA]" DisplayName="Read Range - &quot;PARCELAMENTOS&quot;" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="PARCELAMENTOS">
+                              <ui:ExcelReadRange.Range>
+                                <InArgument x:TypeArguments="x:String">
+                                  <Literal x:TypeArguments="x:String" Value="" />
+                                </InArgument>
+                              </ui:ExcelReadRange.Range>
+                            </ui:ExcelReadRange>
+                            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="334,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+                              <ui:CommentOut.Body>
+                                <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="349,353" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[TransactionData]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="307,261" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                                    <ui:ForEachRow.Body>
+                                      <ActivityAction x:TypeArguments="sd:DataRow">
+                                        <ActivityAction.Argument>
+                                          <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                                        </ActivityAction.Argument>
+                                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="Queue_PR">
+                                            <ui:AddQueueItem.ItemInformation>
+                                              <InArgument x:TypeArguments="x:String" x:Key="TAP">[row("TAP").ToString]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="CNPJ">[row("CNPJ").ToString]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="STATUS">[row("STATUS").ToString]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="LOJA">[row("LOJA").ToString]</InArgument>
+                                            </ui:AddQueueItem.ItemInformation>
+                                          </ui:AddQueueItem>
+                                        </Sequence>
+                                      </ActivityAction>
+                                    </ui:ForEachRow.Body>
+                                  </ui:ForEachRow>
+                                </Sequence>
+                              </ui:CommentOut.Body>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </ui:CommentOut>
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:ExcelApplicationScope.Body>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:ExcelApplicationScope>
+                  </FlowStep>
+                </FlowStep.Next>
+              </FlowStep>
+            </FlowStep.Next>
+          </FlowStep>
+        </FlowStep.Next>
+      </FlowStep>
+      <x:Reference>__ReferenceID8</x:Reference>
+      <x:Reference>__ReferenceID9</x:Reference>
+      <x:Reference>__ReferenceID10</x:Reference>
+    </Flowchart>
+    <Sequence DisplayName="Open SIte" sap:VirtualizedContainerService.HintSize="969,1224" sap2010:WorkflowViewState.IdRef="Sequence_24">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: Emissão da guia de recolhimento do estado do Paraná - GR-PR - de parcelamento | " sap:VirtualizedContainerService.HintSize="452,835" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
+        <uix:NApplicationCard.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="418,619" sap2010:WorkflowViewState.IdRef="Sequence_20">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,525" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,117" sap2010:WorkflowViewState.IdRef="SendHotkey_7" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="853e9e40-6515-45bc-80bb-b3dfa837e0b7" WaitForReady="INTERACTIVE">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                    </ui:Target>
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,117" sap2010:WorkflowViewState.IdRef="SendHotkey_8" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="2e388a23-7bfc-4b01-b54c-8aaf429b0f0a" WaitForReady="INTERACTIVE">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                    </ui:Target>
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,117" sap2010:WorkflowViewState.IdRef="SendHotkey_9" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="9875595f-b900-4fe1-9e51-20031271c3ff" WaitForReady="INTERACTIVE">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                    </ui:Target>
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+              </Sequence>
+            </Sequence>
+          </ActivityAction>
+        </uix:NApplicationCard.Body>
+        <uix:NApplicationCard.TargetApp>
+          <uix:TargetApp BrowserType="Chrome" IconBase64="iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAArMSURBVGhD7ZgJUBRXGseJV3nLIXitt65nxAsYmOEaGI7hEoVCzXqgOTx2t2K2TBk1tR5RoyjCioDocIiokUPdoBLxAMUbjygDAgPRRAUvFMbVGJFvv9fTb+ZNTw9qNEnV1n5Vv+qetmf693/fe92NFv+v/4V6D8vJ1tr1izHD122WjcvK8pIWFQZ5adRhAdpr4cqGwkC5Jsvb5WScdGzm56OGrh1vYykj3+G//seVZ087ZZTT6NQLk/zuVk3yhapQhYEJ3lAV4sUjB02wpwE8dj7Yq3atw8gUNztrP/7nfr9y7Goty/F1PVMV7g+cOGGij3EAGkIfRG4IEsQT6MFtszycTo237iLlf/63q36dOgxOljvnVocroTrMj6NZeX0HRLpAA3C4c5+TpGP2923fbiB/uXdbnr3sAr4PVz6qDvNHcQIvTwO8SQi2AzRAgBtolG5wWelR986n1ccjBi/UTA5qNMgzAYi4WBeMpo+ZDuhDYAAaAqkI9GicNajvAv7yb1dfOY3eUh0RANU43zl4+VdOIRpCrAM0gL4Dxl2gLLMfFsdr/LqaPaT/wnIiSOUFAYymkJi8PoBuAZt0oRl5jb8rVCpdIXJQ7095nTcrVzubwMuhisYylKmcRISpvEiI1+qAmbsQG4ANgQEIFQHujTJbKx9e6/XKpmPbfvlKj8eX8IdLQjyhHAU1JATTAaPRN9cBvbwugLg8QuVpAF6+0l/GcdlPVtenfdsBvN6rSz7PvyDPTwbnAtzhe7xoKcpUTFToR91k9IUB6PTRhxAZfS4Ev3jZDoiF8JPCFsdRe3m95qvt0O6yQRmfwMJ5QVCglEIx/tg1vHDZBC/QEFE68qy8SIgKFC8NloOawxPUKKwHR12Ng0MoQWE9KKwHB7AExUt8XXRbZJxlFxmvab76rgw7MyDjI3COnwE78EdOKbGFQR5QghLXyYiyIQTi1yfhVFu+GH7cnw131SXwoObOi7oHtY0Pf1LD7YvZULX/H1C2WQIV8eNBk+AA1VvGw40kB7i5zRFupTjArVRHuJPuADXbHeB+hgM82DUe6vY4gjbbCbQ5TnBiw+jzvKZ4tR/Vx5/IUyIXTYL9CimcDXCFqzhqZEQrQvgQjLgGqVy2CO6XqaG+vr5ZHtwqhZt5n8GNdAn8tFMCt3ZJ4M43zhy12c7wcK8L1Oe6wNM8Kfx8WAbP82XwyxHcHpXCL0dl4Cex9ud1TavHHK9UIt5/h44RKbMhNtQDDvrKuKlUgp0ox6lBhGmAStzeTFfpBUtvNkD8dw0wV6WF8NgnEBbzBObg/ua8Bii90aA/r/ZSEtzOkkLNXinUHZDBfw67wvPj7vDyJE8Rcgo5jZxBziLn3GHb0qHbeF3jIq+3/RKm1VJ5SshXEZDtLYEjOAcvYyfUGKIC1wMd/R/Tkzmhusf1sClPCyEbnkDQemMCo55AAEK2sQe18PCRLsRjtQolPVHSE5rOyKHpLG7P4vacHOC8F8AFpBj3L+KWgPs1h91rRF/F2w7pLu2340NgoSG+nOUDuRiiwFeKU8kNynAqVYZ6Q/WKxXr5Rbu0EIzyBLEANIRy3RNYmGEI8fTqF9B0QQFNxQqURC5RvJktQkNclIPk/c4SXttQ1hFOa/qmzwaCMIRb7DTIlDvCYYUEinBhk7sHecA9uF7GSWw6pDWRplBxFhIiBjvBdeFuKTQW+6OkDy8shA1AuiGHlfMHrOS1DWX7V8/dNIAYcxYEw7+xC8d8nOEchtDwo0/mPJk2rxp5Vp4QgKj5NfFUvRQlSQBhCFN5QsaqkRm8tqF6LA08ISZOsU+KBJXSGb5TOMNJvDffzN3LXZwsWHPi5uQpmw7xi/qHfSgq1gHjqUM5vnXscV7bUD2jwiv7pM8CglCeHo/4ZxjkejlAocJFf8skdxthAAobgBX3X6vjo626aVSP0+hlsZnR50IY5Anle53LeW1D9d42XSsUptDj/dNmwbqpnpDv5YRz9y53cXKbNCdNxdkARJzuh0Y/0QWoq4UX5wXy+pFn0QXQFrlpeW1D9Uma1iAUF0MRNQW+9XSAR0wAdspQhKPOQjug2HgP1py7ArKsQ2CfGgcWCbs47NPiwH1HNGw88HeoPh2iF6c0nHBt4LUN1S1qYkXv7ZHQHDTEZ3P84d513RQiDymheHMjT7bu6+5Br9iTeuFXMSNzuVGQ8r0S0ylku0RZKCbN8ieecfHT4Pq3OVwA8oSl0ixUXMiYDZXQKj5TVLQ5uiSlQk5+JAbwhGOJo00XsdU8991U0BxskOi0VVwA8nrAjrxQnp3zI6NLReXehOS8TyD9q+Gmt9HO4WNXC4UpvdJmcrDH/pwSCTeulz0jIcjrQXOjTkK8/w7kKZMXBezhtQ3VerCdCxV9HXqmzYDIIzFcF8hrAXk9EBMnuOGcN5o28Tu5bcvE3dDKDOTf3+PPYb/DfS9G1WBhY9uPV9cVeUHqFhtRS8SEmAtAiLmke6CREOT1gDxhhQF6ii1YIhSdChYbUnCLbMR9siWfCZszwCJuBx5PM/0uYfrcVF7dUJazpSpWXEgPHna/V1okhtjHhSCQ14NNBxu4h9QEvM+TW6XJxVGuzZbdEHW5FLaWaiCxpBK+vlQKcdfKYQt+TkJ6pO2DMXsOwfIL13TfYTqgR9iFNiN6+LJyFGEAId1Tp0Nkfgxcu1OlD0JZjfd5kwtjgNYYYAXKxVwpgwQMQOrAjVsQfVGNQSqg27ZMmH/iAnecTCWuI8Lfkfub/pdL18V+RawYQfhZSLfUaRx9ts+CD4/Ewk71Mbh6WwN3Ht4DCT6kTC5MoFNonYqTe/riBUhyDoPF6kTdtFmfDPMKz8O9p88M5wt/Y8GXBby2odoMtpV2TxEXNReEBqDYcdvp2LWZuAiTTS/My3ALdvNO6JqSAy9evoTAgwXQKnY7tEvaw60JEuDRz891HRALsHjNZV7buKz+5rFPKCkmSiHCYtim/MX0ogycWFwGWCVncwGUBwrAIiYN18c3XAAyhZoNQBCrlradBtrFRdSJyYohlKbbPywAKbKg7ZKnNpoTZaGy7D6ha8oH0CIB57jYhZG3DrDk6yu8rni1VwxbIJRlYWVZaXa/VaLhLVMUDGCpyoJnuIj9c49zAVqThxcGmItr4P6bLmJhdfrAIc4uRVyYCAqFCTbJBtpvWWJ6YR5uZDftAGvsAKngg4WcONcBfKgtKLoIL1826c573duoWLX1HvJp121TGs2JU1kqzwaxTJptemEW7ECHrZmQqbkJYzPzwOJf23WvEng3Ih1JL/9Bd55YB4QPsuaq1YjuPjax4XVUjkUYwDp5qoHECPDJWGN6cRYih8L6Uaay5FWCHGfPpYi9SryqWth2HNBlvts+G9VUo5GmsjQIxUo1BeTJ4VB1Ohw6J5l5p+FlTV7acEumTotE4/M4olWP32j0hdVqoI2z5SJFkY1KZMQRq+QpHJZJESg/gfsrivwxohdgYcXYz+aOE+zHT+BV3q5aD+/h23G6RGWzPqTGGrvCBrBUTYb5WRHQdEnRpPtT0JP7Y8RI6tfg7D6Tv/y7K/IqTrrSLnTUqg4fu+zqstCr0HKZsqJ4n6LmwVGZtmSPY0V+gn1h2ophuyI+D8hsGZOsFZVrDjJt3tXIv3WR+UsWoZioGOTct5nzv1kRKXIvJw8k8lSlwmSfHCP/1qy4hcV/AcCCDGVYscKsAAAAAElFTkSuQmCC" InformativeScreenshot="f64e849e2b8216bc5a0557753f983f68.png" Selector="&lt;html app='chrome.exe' title='Emissão da guia de recolhimento do estado do Paraná - GR-PR - de parcelamento | Secretaria da Fazenda'/&gt;" Url="http://www.fazenda.pr.gov.br/Pagina/Emissao-da-guia-de-recolhimento-do-estado-do-Parana-GR-PR-de-parcelamento" />
+        </uix:NApplicationCard.TargetApp>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </uix:NApplicationCard>
+      <p:CVScope ContinueOnError="{x:Null}" DelayBefore="{x:Null}" Server="{x:Null}" ApiKey="EPCPS5exfZovG2Nm9W7P4uIaeBv1jJTf8s8o0DCya4UsEbYEXc3GNq44brSQvPPCLvoWeF9fidWE/XYI5ShiWQ==" DesignTimeCacheId="1e207ad1-b1e3-4cad-bec7-44906cb7d506" DisplayName="CV Screen Scope 'chrome.exe Emissão'" sap:VirtualizedContainerService.HintSize="452,257" sap2010:WorkflowViewState.IdRef="CVScope_1" Version="V2">
+        <p:CVScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="CVSessionData" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_23">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:Boolean" Name="Parana_Exist" />
+              </Sequence.Variables>
+              <p:CvElementExistsWithDescriptor Descriptor="[&quot;Target: Text 'PARANA' (104,99,149,31)&quot;]" DesignTimeCacheId="1e207ad1-b1e3-4cad-bec7-44906cb7d506" DesignTimeScaleFactor="1" DisplayName="CV Element Exists - Text" sap:VirtualizedContainerService.HintSize="579,137" sap2010:WorkflowViewState.IdRef="CvElementExistsWithDescriptor_1" InformativeScreenshot="7443a7f17d5a3d8c672bf4a425b59bbb" Result="[Parana_Exist]" Version="V2">
+                <p:CvElementExistsWithDescriptor.DesignTimeDescriptor>
+                  <uc:CvDescriptor>
+                    <uc:CvDescriptor.Target>
+                      <uc:CvElementDescriptor DesignTimeArea="104, 99, 149, 31" ElementType="Text" Text="PARANA" />
+                    </uc:CvDescriptor.Target>
+                  </uc:CvDescriptor>
+                </p:CvElementExistsWithDescriptor.DesignTimeDescriptor>
+              </p:CvElementExistsWithDescriptor>
+              <If Condition="[Parana_Exist]" sap:VirtualizedContainerService.HintSize="579,420" sap2010:WorkflowViewState.IdRef="If_1">
+                <If.Else>
+                  <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,271" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                    <TryCatch.Try>
+                      <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: Emissão da guia de recolhimento do estado do Paraná - GR-PR - de parcelamento | " sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="NApplicationCard_4" InteractionMode="Simulate" Version="V1">
+                        <uix:NApplicationCard.Body>
+                          <ActivityAction x:TypeArguments="x:Object">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="418,619" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,525" sap2010:WorkflowViewState.IdRef="Sequence_27">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,117" sap2010:WorkflowViewState.IdRef="SendHotkey_16" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                                  <ui:SendHotkey.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="853e9e40-6515-45bc-80bb-b3dfa837e0b7" WaitForReady="INTERACTIVE">
+                                      <ui:Target.TimeoutMS>
+                                        <InArgument x:TypeArguments="x:Int32" />
+                                      </ui:Target.TimeoutMS>
+                                    </ui:Target>
+                                  </ui:SendHotkey.Target>
+                                </ui:SendHotkey>
+                                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,117" sap2010:WorkflowViewState.IdRef="SendHotkey_17" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                                  <ui:SendHotkey.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="2e388a23-7bfc-4b01-b54c-8aaf429b0f0a" WaitForReady="INTERACTIVE">
+                                      <ui:Target.TimeoutMS>
+                                        <InArgument x:TypeArguments="x:Int32" />
+                                      </ui:Target.TimeoutMS>
+                                    </ui:Target>
+                                  </ui:SendHotkey.Target>
+                                </ui:SendHotkey>
+                                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,117" sap2010:WorkflowViewState.IdRef="SendHotkey_18" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                                  <ui:SendHotkey.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="9875595f-b900-4fe1-9e51-20031271c3ff" WaitForReady="INTERACTIVE">
+                                      <ui:Target.TimeoutMS>
+                                        <InArgument x:TypeArguments="x:Int32" />
+                                      </ui:Target.TimeoutMS>
+                                    </ui:Target>
+                                  </ui:SendHotkey.Target>
+                                </ui:SendHotkey>
+                              </Sequence>
+                            </Sequence>
+                          </ActivityAction>
+                        </uix:NApplicationCard.Body>
+                        <uix:NApplicationCard.TargetApp>
+                          <uix:TargetApp BrowserType="Chrome" IconBase64="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" InformativeScreenshot="f64e849e2b8216bc5a0557753f983f68.png" Selector="&lt;html app='chrome.exe' title='Emissão da guia de recolhimento do estado do Paraná - GR-PR - de parcelamento | Secretaria da Fazenda'/&gt;" Url="http://www.fazenda.pr.gov.br/Pagina/Emissao-da-guia-de-recolhimento-do-estado-do-Parana-GR-PR-de-parcelamento" />
+                        </uix:NApplicationCard.TargetApp>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </uix:NApplicationCard>
+                    </TryCatch.Try>
+                    <TryCatch.Catches>
+                      <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,105" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ActivityAction x:TypeArguments="s:Exception">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                          </ActivityAction.Argument>
+                        </ActivityAction>
+                      </Catch>
+                    </TryCatch.Catches>
+                  </TryCatch>
+                </If.Else>
+              </If>
+            </Sequence>
+          </ActivityAction>
+        </p:CVScope.Body>
+        <p:CVScope.DesignTimeCache>
+          <uc:CVCache CvUiElements="{x:Null}" OcrTexts="{x:Null}" />
+        </p:CVScope.DesignTimeCache>
+        <p:CVScope.DesignTimeCacheContainer>
+          <uc:CvCacheContainer>
+            <uc:CvCacheContainer.Caches>
+              <scg:List x:TypeArguments="uc:CVCache" Capacity="1">
+                <uc:CVCache DisplayName="Main Screen" Id="1e207ad1-b1e3-4cad-bec7-44906cb7d506" InformativeScreenshot="e66fec840003d653bbdfc7f9b48c4ac4" LogicalPosition="-8, -8" OcrText="Emissao da guia de recolhimento X + = X Nao seguro 1fazenda.pr.gov.br/Pagina/Emissao-da-guia-de-recolhimento-do-estado-do-Parana-GR-PR-de-parcelament T Pausada PARANA SECRETARIA DA FAZENDA PIA Parand Inteligencia Do que voce precisa hoje? Artificial R N O D ESTADO Inicio Institucional Macroacoes Canais de atendimento LGPD Coronavirus Transparencia Escola Fazendaria e Educacao Fiscal Acesso Restrito &gt; E lembre-se: as informacoes prestadas para a emissao sao de exclusiva responsabilidade do interessado. O pagamento devera ser efetuado em agencias dos bancos credenciados pela Secretaria da Fazenda do Estado do Parana. Legislacao: NPF n° 073/2010 - Disciplina a utilizacao da guia de recolhimento do estado do Parana - GR-PR Informacoes da Receita Numero do Parcelamento (TAP): 017451588 CAD/ICMS CPF CNPJ Data para Pagamento v Fevereiro/2022 OK Limpar Utilizamos cookies para melhorar a sua experiencia nesse site. Ao fechar esta mensagem sem modificar as definicoes do seu navegador, E FECHAR voce concorda com a utilizacao deles. Saiba mais sobre cookies e como alterar as configuracoes do seu computador. Activate Win8VS Go to System in Contro Panel to activate V indows." Position="-8, -8" ScreenshotGuid="6dda8fda-cfd2-45e9-9a98-62bd64a4764e" ServerVersion="1">
+                  <uc:CVCache.CvUiElements>
+                    <scg:List x:TypeArguments="uc:CvElementInfo" Capacity="128">
+                      <uc:CvElementInfo Category="Button" Region="331, 509, 53, 20" />
+                      <uc:CvElementInfo Category="Button" Region="386, 509, 67, 20" />
+                      <uc:CvElementInfo Category="Button" Region="6, 0, 243, 35" />
+                      <uc:CvElementInfo Category="Icon" Region="42, 40, 22, 22" />
+                      <uc:CvElementInfo Category="InputBox" Region="125, 38, 1078, 30" />
+                      <uc:CvElementInfo Category="MaximizeButton" Region="1290, 0, 28, 20" />
+                      <uc:CvElementInfo Category="RadioButton" Region="310, 424, 16, 16" />
+                      <uc:CvElementInfo Category="RadioButton" Region="310, 406, 17, 17" />
+                      <uc:CvElementInfo Category="Icon" Region="1171, 41, 21, 21" />
+                      <uc:CvElementInfo Category="InputBox" Region="331, 404, 121, 20" />
+                      <uc:CvElementInfo Category="Icon" Region="1215, 104, 26, 26" />
+                      <uc:CvElementInfo Category="RadioButton" Region="310, 442, 16, 16" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="827, 173, 18, 19" />
+                      <uc:CvElementInfo Category="Icon" Region="259, 7, 20, 19" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="537, 172, 19, 20" />
+                      <uc:CvElementInfo Category="Icon" Region="9, 40, 23, 21" />
+                      <uc:CvElementInfo Category="Icon" Region="75, 41, 21, 21" />
+                      <uc:CvElementInfo Category="Icon" Region="17, 6, 20, 22" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="247, 173, 18, 19" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="703, 172, 20, 20" />
+                      <uc:CvElementInfo Category="Icon" Region="116, 42, 20, 19" />
+                      <uc:CvElementInfo Category="Icon" Region="1139, 42, 21, 20" />
+                      <uc:CvElementInfo Category="Icon" Region="1210, 41, 21, 21" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="1349, 710, 17, 17" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="1092, 172, 18, 19" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="1348, 70, 18, 18" />
+                      <uc:CvElementInfo Category="CloseButton" Region="224, 9, 16, 16" />
+                      <uc:CvElementInfo Category="InputBox" Region="331, 383, 120, 19" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="356, 172, 20, 20" />
+                      <uc:CvElementInfo Category="InputBox" Region="374, 462, 106, 19" />
+                      <uc:CvElementInfo Category="CloseButton" Region="1317, 0, 48, 22" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="1230, 6, 21, 18" />
+                      <uc:CvElementInfo Category="Icon" Region="1240, 39, 26, 25" />
+                      <uc:CvElementInfo Category="MinimizeButton" Region="1262, 0, 30, 21" />
+                      <uc:CvElementInfo Category="Button" Region="1236, 37, 93, 30" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="1242, 172, 16, 19" />
+                      <uc:CvElementInfo Category="Icon" Region="1335, 40, 18, 23" />
+                      <uc:CvElementInfo Category="Icon" Region="253, 88, 42, 44" />
+                      <uc:CvElementInfo Category="InputBox" Region="1056, 634, 183, 41" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="1224, 174, 17, 17" />
+                      <uc:CvElementInfo Category="Icon" Region="126, 228, 17, 17" />
+                      <uc:CvElementInfo Category="InputBox" Confidence="Runtime" Region="940, 105, 308, 31" />
+                      <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="1050, 634, 190, 44" />
+                      <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="125, 203, 18, 18" />
+                      <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="332, 463, 38, 18" />
+                      <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="375, 462, 107, 19" />
+                      <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="126, 134, 13, 13" />
+                      <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="1226, 175, 15, 15" />
+                      <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="1239, 162, 22, 39" />
+                      <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="110, 208, 12, 12" />
+                      <uc:CvElementInfo Category="CheckBox" Confidence="Runtime" Region="1225, 175, 15, 16" />
+                      <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="1241, 171, 17, 19" />
+                      <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="353, 466, 14, 12" />
+                      <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="1261, 0, 31, 21" />
+                      <uc:CvElementInfo Category="RadioButton" Confidence="Runtime" Region="126, 228, 17, 16" />
+                      <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="312, 383, 140, 18" />
+                      <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="1210, 41, 21, 20" />
+                      <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="110, 206, 14, 16" />
+                      <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="335, 464, 33, 16" />
+                      <uc:CvElementInfo Category="ArrowButton" Confidence="Runtime" Region="317, 383, 13, 14" />
+                      <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="109, 231, 13, 13" />
+                      <uc:CvElementInfo Category="Button" Confidence="Runtime" Region="75, 40, 22, 22" />
+                      <uc:CvElementInfo Category="Icon" Confidence="Runtime" Region="316, 383, 13, 15" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="0, 209, 80, 28" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="4, 205, 85, 50" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="9, 203, 65, 9" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="13, 210, 42, 41" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="829, 203, 309, 17" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="0, 202, 109, 12" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="1259, 202, 90, 13" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="9, 159, 60, 44" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="106, 506, 61, 26" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="2, 83, 24, 77" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="0, 138, 25, 22" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="4, 128, 36, 32" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="3, 98, 56, 62" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="997, 212, 241, 15" />
+                      <uc:CvElementInfo Category="Cell" Confidence="Runtime" Region="96, 384, 127, 120" />
+                      <uc:CvElementInfo Category="InputBox" Region="331, 462, 40, 18" />
+                      <uc:CvElementInfo Category="ArrowButton" Region="353, 465, 15, 15" />
+                    </scg:List>
+                  </uc:CVCache.CvUiElements>
+                  <uc:CVCache.OcrTexts>
+                    <scg:List x:TypeArguments="uc:OcrTextInfo" Capacity="256">
+                      <uc:OcrTextInfo Region="43, 10, 44, 12" Text="Emissao" />
+                      <uc:OcrTextInfo Region="89, 10, 15, 12" Text="da" />
+                      <uc:OcrTextInfo Region="105, 10, 25, 15" Text="guia" />
+                      <uc:OcrTextInfo Region="131, 10, 16, 13" Text="de" />
+                      <uc:OcrTextInfo Region="148, 10, 71, 12" Text="recolhimento" />
+                      <uc:OcrTextInfo Region="225, 11, 12, 11" Text="X" />
+                      <uc:OcrTextInfo Region="262, 8, 14, 16" Text="+" />
+                      <uc:OcrTextInfo Region="1269, 1, 15, 14" Text="=" />
+                      <uc:OcrTextInfo Region="1334, 2, 12, 13" Text="X" />
+                      <uc:OcrTextInfo Region="141, 45, 27, 13" Text="Nao" />
+                      <uc:OcrTextInfo Region="170, 47, 44, 14" Text="seguro" />
+                      <uc:OcrTextInfo Region="213, 44, 681, 17" Text="1fazenda.pr.gov.br/Pagina/Emissao-da-guia-de-recolhimento-do-estado-do-Parana-GR-PR-de-parcelament" />
+                      <uc:OcrTextInfo Region="1247, 45, 11, 14" Text="T" />
+                      <uc:OcrTextInfo Region="1271, 45, 46, 12" Text="Pausada" />
+                      <uc:OcrTextInfo Region="104, 99, 149, 31" Text="PARANA" />
+                      <uc:OcrTextInfo Region="331, 106, 97, 16" Text="SECRETARIA" />
+                      <uc:OcrTextInfo Region="431, 107, 24, 14" Text="DA" />
+                      <uc:OcrTextInfo Region="458, 106, 74, 15" Text="FAZENDA" />
+                      <uc:OcrTextInfo Region="790, 89, 90, 51" Text="PIA" />
+                      <uc:OcrTextInfo Region="885, 104, 29, 9" Text="Parand" />
+                      <uc:OcrTextInfo Region="886, 114, 48, 9" Text="Inteligencia" />
+                      <uc:OcrTextInfo Region="958, 112, 20, 12" Text="Do" />
+                      <uc:OcrTextInfo Region="980, 114, 25, 13" Text="que" />
+                      <uc:OcrTextInfo Region="1007, 111, 32, 13" Text="voce" />
+                      <uc:OcrTextInfo Region="1040, 112, 47, 15" Text="precisa" />
+                      <uc:OcrTextInfo Region="1089, 111, 35, 15" Text="hoje?" />
+                      <uc:OcrTextInfo Region="885, 123, 38, 8" Text="Artificial" />
+                      <uc:OcrTextInfo Region="152, 136, 7, 9" Text="R" />
+                      <uc:OcrTextInfo Region="164, 136, 8, 9" Text="N" />
+                      <uc:OcrTextInfo Region="176, 136, 9, 9" Text="O" />
+                      <uc:OcrTextInfo Region="197, 136, 8, 9" Text="D" />
+                      <uc:OcrTextInfo Region="232, 136, 63, 9" Text="ESTADO" />
+                      <uc:OcrTextInfo Region="113, 175, 37, 14" Text="Inicio" />
+                      <uc:OcrTextInfo Region="166, 175, 82, 13" Text="Institucional" />
+                      <uc:OcrTextInfo Region="278, 175, 80, 16" Text="Macroacoes" />
+                      <uc:OcrTextInfo Region="388, 175, 47, 13" Text="Canais" />
+                      <uc:OcrTextInfo Region="435, 175, 19, 13" Text="de" />
+                      <uc:OcrTextInfo Region="455, 175, 83, 13" Text="atendimento" />
+                      <uc:OcrTextInfo Region="568, 175, 39, 13" Text="LGPD" />
+                      <uc:OcrTextInfo Region="624, 175, 81, 14" Text="Coronavirus" />
+                      <uc:OcrTextInfo Region="735, 175, 91, 16" Text="Transparencia" />
+                      <uc:OcrTextInfo Region="859, 175, 43, 13" Text="Escola" />
+                      <uc:OcrTextInfo Region="903, 175, 73, 13" Text="Fazendaria" />
+                      <uc:OcrTextInfo Region="977, 177, 10, 11" Text="e" />
+                      <uc:OcrTextInfo Region="989, 175, 64, 16" Text="Educacao" />
+                      <uc:OcrTextInfo Region="1054, 175, 39, 13" Text="Fiscal" />
+                      <uc:OcrTextInfo Region="1123, 175, 49, 13" Text="Acesso" />
+                      <uc:OcrTextInfo Region="1173, 175, 52, 13" Text="Restrito" />
+                      <uc:OcrTextInfo Region="1245, 175, 8, 12" Text="&gt;" />
+                      <uc:OcrTextInfo Region="127, 204, 11, 15" Text="E" />
+                      <uc:OcrTextInfo Region="141, 206, 76, 14" Text="lembre-se:" />
+                      <uc:OcrTextInfo Region="218, 208, 18, 11" Text="as" />
+                      <uc:OcrTextInfo Region="238, 205, 89, 17" Text="informacoes" />
+                      <uc:OcrTextInfo Region="329, 206, 71, 16" Text="prestadas" />
+                      <uc:OcrTextInfo Region="403, 207, 32, 15" Text="para" />
+                      <uc:OcrTextInfo Region="438, 208, 10, 11" Text="a" />
+                      <uc:OcrTextInfo Region="450, 205, 60, 14" Text="emissao" />
+                      <uc:OcrTextInfo Region="512, 205, 27, 14" Text="sao" />
+                      <uc:OcrTextInfo Region="541, 205, 21, 14" Text="de" />
+                      <uc:OcrTextInfo Region="564, 205, 65, 14" Text="exclusiva" />
+                      <uc:OcrTextInfo Region="631, 205, 123, 16" Text="responsabilidade" />
+                      <uc:OcrTextInfo Region="757, 205, 20, 14" Text="do" />
+                      <uc:OcrTextInfo Region="779, 205, 87, 14" Text="interessado." />
+                      <uc:OcrTextInfo Region="127, 228, 14, 14" Text="O" />
+                      <uc:OcrTextInfo Region="144, 229, 81, 16" Text="pagamento" />
+                      <uc:OcrTextInfo Region="227, 228, 51, 13" Text="devera" />
+                      <uc:OcrTextInfo Region="281, 231, 24, 11" Text="ser" />
+                      <uc:OcrTextInfo Region="307, 228, 64, 14" Text="efetuado" />
+                      <uc:OcrTextInfo Region="374, 231, 23, 11" Text="em" />
+                      <uc:OcrTextInfo Region="400, 228, 64, 17" Text="agencias" />
+                      <uc:OcrTextInfo Region="467, 228, 27, 14" Text="dos" />
+                      <uc:OcrTextInfo Region="497, 228, 54, 14" Text="bancos" />
+                      <uc:OcrTextInfo Region="553, 228, 99, 14" Text="credenciados" />
+                      <uc:OcrTextInfo Region="654, 229, 31, 16" Text="pela" />
+                      <uc:OcrTextInfo Region="688, 228, 73, 14" Text="Secretaria" />
+                      <uc:OcrTextInfo Region="764, 229, 18, 13" Text="da" />
+                      <uc:OcrTextInfo Region="785, 228, 61, 14" Text="Fazenda" />
+                      <uc:OcrTextInfo Region="850, 228, 20, 14" Text="do" />
+                      <uc:OcrTextInfo Region="873, 228, 49, 14" Text="Estado" />
+                      <uc:OcrTextInfo Region="925, 229, 19, 13" Text="do" />
+                      <uc:OcrTextInfo Region="947, 228, 53, 14" Text="Parana." />
+                      <uc:OcrTextInfo Region="103, 260, 82, 17" Text="Legislacao:" />
+                      <uc:OcrTextInfo Region="127, 293, 33, 14" Text="NPF" />
+                      <uc:OcrTextInfo Region="162, 294, 17, 13" Text="n°" />
+                      <uc:OcrTextInfo Region="182, 293, 71, 14" Text="073/2010" />
+                      <uc:OcrTextInfo Region="255, 295, 7, 12" Text="-" />
+                      <uc:OcrTextInfo Region="265, 293, 68, 17" Text="Disciplina" />
+                      <uc:OcrTextInfo Region="336, 296, 10, 11" Text="a" />
+                      <uc:OcrTextInfo Region="349, 293, 67, 17" Text="utilizacao" />
+                      <uc:OcrTextInfo Region="419, 293, 19, 14" Text="da" />
+                      <uc:OcrTextInfo Region="440, 294, 32, 16" Text="guia" />
+                      <uc:OcrTextInfo Region="475, 293, 19, 14" Text="de" />
+                      <uc:OcrTextInfo Region="497, 293, 93, 14" Text="recolhimento" />
+                      <uc:OcrTextInfo Region="593, 293, 20, 14" Text="do" />
+                      <uc:OcrTextInfo Region="616, 293, 49, 14" Text="estado" />
+                      <uc:OcrTextInfo Region="668, 293, 19, 14" Text="do" />
+                      <uc:OcrTextInfo Region="690, 293, 51, 14" Text="Parana" />
+                      <uc:OcrTextInfo Region="743, 295, 7, 12" Text="-" />
+                      <uc:OcrTextInfo Region="752, 293, 47, 14" Text="GR-PR" />
+                      <uc:OcrTextInfo Region="109, 358, 80, 14" Text="Informacoes" />
+                      <uc:OcrTextInfo Region="192, 358, 16, 12" Text="da" />
+                      <uc:OcrTextInfo Region="211, 359, 46, 11" Text="Receita" />
+                      <uc:OcrTextInfo Region="148, 383, 45, 12" Text="Numero" />
+                      <uc:OcrTextInfo Region="196, 383, 14, 11" Text="do" />
+                      <uc:OcrTextInfo Region="213, 383, 76, 13" Text="Parcelamento" />
+                      <uc:OcrTextInfo Region="292, 383, 36, 13" Text="(TAP):" />
+                      <uc:OcrTextInfo Region="335, 386, 59, 11" Text="017451588" />
+                      <uc:OcrTextInfo Region="244, 410, 59, 12" Text="CAD/ICMS" />
+                      <uc:OcrTextInfo Region="282, 429, 22, 11" Text="CPF" />
+                      <uc:OcrTextInfo Region="275, 447, 29, 11" Text="CNPJ" />
+                      <uc:OcrTextInfo Region="204, 464, 26, 11" Text="Data" />
+                      <uc:OcrTextInfo Region="233, 466, 25, 11" Text="para" />
+                      <uc:OcrTextInfo Region="261, 464, 64, 13" Text="Pagamento" />
+                      <uc:OcrTextInfo Region="354, 466, 12, 10" Text="v" />
+                      <uc:OcrTextInfo Region="377, 466, 78, 11" Text="Fevereiro/2022" />
+                      <uc:OcrTextInfo Region="350, 514, 16, 9" Text="OK" />
+                      <uc:OcrTextInfo Region="401, 514, 37, 12" Text="Limpar" />
+                      <uc:OcrTextInfo Region="122, 638, 70, 13" Text="Utilizamos" />
+                      <uc:OcrTextInfo Region="194, 638, 52, 14" Text="cookies" />
+                      <uc:OcrTextInfo Region="249, 640, 31, 14" Text="para" />
+                      <uc:OcrTextInfo Region="282, 638, 61, 13" Text="melhorar" />
+                      <uc:OcrTextInfo Region="345, 640, 9, 11" Text="a" />
+                      <uc:OcrTextInfo Region="356, 641, 26, 10" Text="sua" />
+                      <uc:OcrTextInfo Region="384, 637, 77, 17" Text="experiencia" />
+                      <uc:OcrTextInfo Region="464, 640, 41, 11" Text="nesse" />
+                      <uc:OcrTextInfo Region="507, 638, 28, 14" Text="site." />
+                      <uc:OcrTextInfo Region="537, 638, 20, 13" Text="Ao" />
+                      <uc:OcrTextInfo Region="559, 638, 44, 13" Text="fechar" />
+                      <uc:OcrTextInfo Region="605, 638, 29, 13" Text="esta" />
+                      <uc:OcrTextInfo Region="637, 640, 73, 14" Text="mensagem" />
+                      <uc:OcrTextInfo Region="713, 640, 29, 11" Text="sem" />
+                      <uc:OcrTextInfo Region="745, 638, 63, 13" Text="modificar" />
+                      <uc:OcrTextInfo Region="809, 640, 17, 11" Text="as" />
+                      <uc:OcrTextInfo Region="828, 638, 70, 16" Text="definicoes" />
+                      <uc:OcrTextInfo Region="900, 638, 18, 13" Text="do" />
+                      <uc:OcrTextInfo Region="920, 640, 26, 11" Text="seu" />
+                      <uc:OcrTextInfo Region="948, 638, 75, 16" Text="navegador," />
+                      <uc:OcrTextInfo Region="1156, 648, 10, 13" Text="E" />
+                      <uc:OcrTextInfo Region="1167, 648, 56, 13" Text="FECHAR" />
+                      <uc:OcrTextInfo Region="122, 659, 33, 14" Text="voce" />
+                      <uc:OcrTextInfo Region="158, 660, 63, 13" Text="concorda" />
+                      <uc:OcrTextInfo Region="224, 662, 29, 11" Text="com" />
+                      <uc:OcrTextInfo Region="256, 662, 9, 11" Text="a" />
+                      <uc:OcrTextInfo Region="268, 659, 62, 16" Text="utilizacao" />
+                      <uc:OcrTextInfo Region="333, 660, 41, 14" Text="deles." />
+                      <uc:OcrTextInfo Region="376, 660, 38, 13" Text="Saiba" />
+                      <uc:OcrTextInfo Region="416, 660, 33, 13" Text="mais" />
+                      <uc:OcrTextInfo Region="451, 660, 39, 13" Text="sobre" />
+                      <uc:OcrTextInfo Region="492, 660, 53, 13" Text="cookies" />
+                      <uc:OcrTextInfo Region="548, 662, 10, 11" Text="e" />
+                      <uc:OcrTextInfo Region="560, 662, 38, 11" Text="como" />
+                      <uc:OcrTextInfo Region="600, 660, 44, 13" Text="alterar" />
+                      <uc:OcrTextInfo Region="646, 662, 17, 11" Text="as" />
+                      <uc:OcrTextInfo Region="664, 660, 96, 15" Text="configuracoes" />
+                      <uc:OcrTextInfo Region="762, 660, 19, 13" Text="do" />
+                      <uc:OcrTextInfo Region="783, 662, 26, 11" Text="seu" />
+                      <uc:OcrTextInfo Region="811, 660, 84, 16" Text="computador." />
+                      <uc:OcrTextInfo Region="973, 654, 73, 16" Text="Activate" />
+                      <uc:OcrTextInfo Region="1050, 651, 85, 21" Text="Win8VS" />
+                      <uc:OcrTextInfo Region="973, 677, 21, 14" Text="Go" />
+                      <uc:OcrTextInfo Region="996, 678, 16, 13" Text="to" />
+                      <uc:OcrTextInfo Region="1014, 677, 49, 17" Text="System" />
+                      <uc:OcrTextInfo Region="1066, 677, 13, 14" Text="in" />
+                      <uc:OcrTextInfo Region="1081, 677, 49, 14" Text="Contro" />
+                      <uc:OcrTextInfo Region="1135, 677, 36, 14" Text="Panel" />
+                      <uc:OcrTextInfo Region="1174, 678, 16, 13" Text="to" />
+                      <uc:OcrTextInfo Region="1193, 677, 53, 14" Text="activate" />
+                      <uc:OcrTextInfo Region="1248, 676, 11, 15" Text="V" />
+                      <uc:OcrTextInfo Region="1265, 677, 49, 14" Text="indows." />
+                    </scg:List>
+                  </uc:CVCache.OcrTexts>
+                </uc:CVCache>
+              </scg:List>
+            </uc:CvCacheContainer.Caches>
+          </uc:CvCacheContainer>
+        </p:CVScope.DesignTimeCacheContainer>
+        <p:CVScope.OCREngine>
+          <ActivityFunc x:TypeArguments="sd1:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+            <ActivityFunc.Argument>
+              <DelegateInArgument x:TypeArguments="sd1:Image" Name="Image" />
+            </ActivityFunc.Argument>
+            <p1:UiPathScreenOCR Endpoint="{x:Null}" Output="{x:Null}" Text="{x:Null}" ApiKey="&#xA;EPCPS5exfZovG2Nm9W7P4uIaeBv1jJTf8s8o0DCya4UsEbYEXc3GNq44brSQvPPCLvoWeF9fidWE/XYI5ShiWQ==" ComputeSkewAngle="False" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="UiPathScreenOCR_6" Image="[Image]" Language="en" Profile="Screen" Scale="1" />
+          </ActivityFunc>
+        </p:CVScope.OCREngine>
+        <p:CVScope.Target>
+          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="460d4df0-eb4f-4bea-825f-e63fbe440ed0" InformativeScreenshot="c2ece65d66304f2adbe3a9e28c9fa35e" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='Emissão da guia de recolhimento do estado do Paraná - GR-PR - de*' /&gt;" WaitForReady="INTERACTIVE">
+            <ui:Target.TimeoutMS>
+              <InArgument x:TypeArguments="x:Int32" />
+            </ui:Target.TimeoutMS>
+          </ui:Target>
+        </p:CVScope.Target>
+        <p:CVScope.UseLocalServer>
+          <InArgument x:TypeArguments="x:Boolean" />
+        </p:CVScope.UseLocalServer>
+      </p:CVScope>
+    </Sequence>
+  </Sequence>
+</Activity>

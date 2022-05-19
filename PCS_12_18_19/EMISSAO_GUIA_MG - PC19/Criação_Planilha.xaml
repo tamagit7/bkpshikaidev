@@ -1,0 +1,210 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Criação_Planilha" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_DIRETORIO_MG" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>704,716</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Windows.Controls</x:String>
+      <x:String>System.Windows.Documents</x:String>
+      <x:String>System.Windows.Shapes</x:String>
+      <x:String>System.Windows.Shell</x:String>
+      <x:String>System.Windows.Navigation</x:String>
+      <x:String>System.Windows.Data</x:String>
+      <x:String>System.Windows</x:String>
+      <x:String>System.Windows.Controls.Primitives</x:String>
+      <x:String>System.Windows.Media.Animation</x:String>
+      <x:String>System.Windows.Input</x:String>
+      <x:String>System.Windows.Media</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Windows.Ink</x:String>
+      <x:String>System.Windows.Automation</x:String>
+      <x:String>System.Windows.Media.TextFormatting</x:String>
+      <x:String>System.Windows.Media.Effects</x:String>
+      <x:String>System.Windows.Media.Imaging</x:String>
+      <x:String>System.Windows.Media.Media3D</x:String>
+      <x:String>System.Windows.Forms.Integration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Mail.Exchange.Activities</x:String>
+      <x:String>UiPath.Mail.IMAP.Activities</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.POP3.Activities</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.Orchestrator.Client</x:String>
+      <x:String>UiPath.Orchestrator.Client.Models</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>WindowsFormsIntegration</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OrchestratorClient</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Flowchart sap:VirtualizedContainerService.HintSize="664,636" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="x:String" Default="[DateTime.Now.AddMonths (-1) .ToString (&quot;MMMM&quot;, new System.Globalization.CultureInfo(&quot;pt-PT&quot;)).ToUpper]" Name="v_DATE_MES_ANTERIOR" />
+      <Variable x:TypeArguments="x:String" Default="[in_DIRETORIO_MG+v_DATE_MES_ANTERIOR+&quot;\PC12\Planilha\&quot;+v_DATE_MES_ANTERIOR+&quot;.xls&quot;]" Name="v_PLANILHA_CRIADA_PC12" />
+      <Variable x:TypeArguments="x:Boolean" Name="v_EXISTE" />
+    </Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+        <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+        <av:Size x:Key="ShapeSize">60,75</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,104.02</av:PointCollection>
+        <x:Double x:Key="Width">650</x:Double>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Flowchart.StartNode>
+      <x:Reference>__ReferenceID1</x:Reference>
+    </Flowchart.StartNode>
+    <FlowStep x:Name="__ReferenceID1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">200,104.02</av:Point>
+          <av:Size x:Key="ShapeSize">200,123</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">300,227.02 300,264.5</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence sap2010:Annotation.AnnotationText="Criação da Planilha para a Emissão de guias.&#xA;Planilha Host + PC12&#xA;" DisplayName="Criação da Planilha" sap:VirtualizedContainerService.HintSize="200,123" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="sd:DataTable" Name="v_DATA_TABLE_HOST" />
+          <Variable x:TypeArguments="sd:DataTable" Name="v_DATA_TABLE_HOST_PC12" />
+          <Variable x:TypeArguments="sd:DataTable" Name="v_DATA_JOINED" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="559,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[now.tostring(&quot;dd/MM/yyyy&quot;) + (&quot;- Criando a planilha para a emissão&quot;)]" />
+        <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[v_DATA_TABLE_HOST]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="559,87" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Plan1" WorkbookPath="[in_DIRETORIO_MG+&quot;Planilha_Hosts_MG.xlsx&quot;]" />
+        <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[v_DATA_TABLE_HOST_PC12]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="559,87" sap2010:WorkflowViewState.IdRef="ReadRange_2" SheetName="Planilha1" WorkbookPath="[in_DIRETORIO_MG+v_DATE_MES_ANTERIOR+&quot;\PC12\Planilha\PC12_&quot;+v_DATE_MES_ANTERIOR+&quot;.xls&quot;]" />
+        <ui:JoinDataTables DataTable1="[v_DATA_TABLE_HOST]" DataTable2="[v_DATA_TABLE_HOST_PC12]" DisplayName="Join Data Tables" sap:VirtualizedContainerService.HintSize="559,59" sap2010:WorkflowViewState.IdRef="JoinDataTables_1" JoinType="Left" OutputDataTable="[v_DATA_JOINED]">
+          <ui:JoinDataTables.Arguments>
+            <scg:List x:TypeArguments="ui:JoinOperationArgument" Capacity="4">
+              <ui:JoinOperationArgument Operand="{x:Null}" BooleanOperator="And" Operator="EQ">
+                <ui:JoinOperationArgument.Column1>
+                  <InArgument x:TypeArguments="x:String">["Filial-Lojas"]</InArgument>
+                </ui:JoinOperationArgument.Column1>
+                <ui:JoinOperationArgument.Column2>
+                  <InArgument x:TypeArguments="x:String">["Filial"]</InArgument>
+                </ui:JoinOperationArgument.Column2>
+              </ui:JoinOperationArgument>
+            </scg:List>
+          </ui:JoinDataTables.Arguments>
+        </ui:JoinDataTables>
+        <ui:RemoveDataColumn Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="Filial" DataTable="[v_DATA_JOINED]" DisplayName="Remove Data Column" sap:VirtualizedContainerService.HintSize="559,22" sap2010:WorkflowViewState.IdRef="RemoveDataColumn_1" />
+        <ui:WriteRange AddHeaders="True" DataTable="[v_DATA_JOINED]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="559,115" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Planilha1" StartingCell="A1" WorkbookPath="[in_DIRETORIO_MG+v_DATE_MES_ANTERIOR+&quot;\PC12\Planilha\&quot;+v_DATE_MES_ANTERIOR+&quot;.xls&quot;]" />
+        <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="559,554" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[in_DIRETORIO_MG+v_DATE_MES_ANTERIOR+&quot;\PC12\Planilha\&quot;+v_DATE_MES_ANTERIOR+&quot;.xls&quot;]">
+          <ui:ExcelApplicationScope.Body>
+            <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="336,445" sap2010:WorkflowViewState.IdRef="Sequence_1">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="ui:GenericValue" Name="v_LINHAS_PLANILHAS_EXCEL_PC12" />
+                  <Variable x:TypeArguments="ui:GenericValue" Name="v_LINHAS_PLANILHA" />
+                  <Variable x:TypeArguments="sd:DataTable" Name="vLinhas" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:ExcelReadRange AddHeaders="True" DataTable="[vLinhas]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" Range="D1" SheetName="Planilha1" />
+                <Assign DisplayName="Realiza leiutura da planilha" sap:VirtualizedContainerService.HintSize="314,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="ui:GenericValue">[v_LINHAS_PLANILHA]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="ui:GenericValue">[vLinhas.Rows.Count]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap:VirtualizedContainerService.HintSize="314,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="ui:GenericValue">[v_LINHAS_PLANILHAS_EXCEL_PC12]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="ui:GenericValue">[v_LINHAS_PLANILHA]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <ui:ExcelInsertDeleteRows DisplayName="Insert/Delete Rows" sap:VirtualizedContainerService.HintSize="314,22" sap2010:WorkflowViewState.IdRef="ExcelInsertDeleteRows_1" Mode="Remove" NoRows="200" Position="[v_LINHAS_PLANILHA +1]" SheetName="Planilha1" />
+              </Sequence>
+            </ActivityAction>
+          </ui:ExcelApplicationScope.Body>
+        </ui:ExcelApplicationScope>
+      </Sequence>
+      <FlowStep.Next>
+        <FlowStep x:Name="__ReferenceID0">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">200,264.5</av:Point>
+              <av:Size x:Key="ShapeSize">200,51</av:Size>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:PathExists DisplayName="v_PLANILHA_MG_CRIADA" Exists="[v_EXISTE]" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[v_PLANILHA_CRIADA_PC12]" PathType="File">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:PathExists>
+        </FlowStep>
+      </FlowStep.Next>
+    </FlowStep>
+    <x:Reference>__ReferenceID0</x:Reference>
+  </Flowchart>
+</Activity>

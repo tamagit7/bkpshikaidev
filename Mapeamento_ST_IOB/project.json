@@ -1,0 +1,131 @@
+{
+  "name": "Mapeamento_ST_IOB",
+  "description": "Rob^Mapeamento ST Site IOB - Fiscal",
+  "main": "Main.xaml",
+  "dependencies": {
+    "UiPath.Credentials.Activities": "[1.1.6479.13204]",
+    "UiPath.Excel.Activities": "[2.5.4]",
+    "UiPath.Mail.Activities": "[1.4.1]",
+    "UiPath.System.Activities": "[19.4.1]",
+    "UiPath.UIAutomation.Activities": "[19.4.2]"
+  },
+  "schemaVersion": "3.2",
+  "studioVersion": "19.4.4.0",
+  "projectVersion": "1.0.23",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "isPausable": true,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ]
+  },
+  "projectType": "Workflow",
+  "libraryOptions": {
+    "includeOriginalXaml": false,
+    "privateWorkflows": []
+  },
+  "arguments": {
+    "input": [
+      {
+        "name": "OrchestratorQueueName",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": false
+      },
+      {
+        "name": "User_Site",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": true
+      },
+      {
+        "name": "Password_Site",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": true
+      },
+      {
+        "name": "in_Planilha_Status",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": true
+      },
+      {
+        "name": "in_Leitura_Status_Abastecimento",
+        "type": "System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": false
+      },
+      {
+        "name": "in_Leitura_Status_Ecommerce",
+        "type": "System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": false
+      },
+      {
+        "name": "in_Leitura_Status_ReversaRef",
+        "type": "System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": false
+      },
+      {
+        "name": "in_Leitura_Status_ReversaNE",
+        "type": "System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": false
+      },
+      {
+        "name": "in_Planilha_Abastecimento",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": true
+      },
+      {
+        "name": "in_Planilha_Ecommerce",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": true
+      },
+      {
+        "name": "in_Planilha_ReversaNE",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": true
+      },
+      {
+        "name": "in_Planilha_ReversaRef",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "required": false,
+        "hasDefault": true
+      }
+    ],
+    "output": [
+      {
+        "name": "STATUS",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      },
+      {
+        "name": "out_Numero_Linhas_Planilhas_UF",
+        "type": "UiPath.Core.GenericValue, UiPath.System.Activities, Version=19.4.1.0, Culture=neutral, PublicKeyToken=null"
+      },
+      {
+        "name": "out_UF_Planilha_Status",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      },
+      {
+        "name": "a_UF",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      },
+      {
+        "name": "a_Planilha_Status_Processando",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      },
+      {
+        "name": "a_Planilha_ReversaNE",
+        "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      }
+    ]
+  },
+  "webServices": []
+}

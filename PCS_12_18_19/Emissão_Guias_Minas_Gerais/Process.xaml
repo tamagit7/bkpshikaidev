@@ -1,0 +1,678 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_read_PC12" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_read_PC18" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_read_PC19" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="result" Type="OutArgument(x:String)" />
+    <x:Property Name="data_vencimento" Type="InArgument(s:DateTime)" />
+    <x:Property Name="data_vencimento2" Type="InArgument(x:String)" />
+    <x:Property Name="Mes_Anterior" Type="InArgument(x:String)" />
+    <x:Property Name="Ano" Type="InArgument(x:String)" />
+    <x:Property Name="Diretorio_Destino" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:Process.data_vencimento2>
+    <InArgument x:TypeArguments="x:String" />
+  </this:Process.data_vencimento2>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1054,960</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="38">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>System.Globalization</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="31">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="676,895" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="634,55" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
+    <StateMachine InitialState="{x:Reference __ReferenceID8}" DisplayName="State Machine" sap:VirtualizedContainerService.HintSize="634,636" sap2010:WorkflowViewState.IdRef="StateMachine_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+          <x:Double x:Key="StateContainerWidth">600</x:Double>
+          <x:Double x:Key="StateContainerHeight">600</x:Double>
+          <av:PointCollection x:Key="ConnectorLocation">297,77.5 297,107.5 253.3,107.5 253.3,119.5</av:PointCollection>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <State x:Name="__ReferenceID8" DisplayName="PC12" sap:VirtualizedContainerService.HintSize="882,1335" sap2010:WorkflowViewState.IdRef="State_8">
+        <State.Entry>
+          <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_read_PC12]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="836,975" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
+            <ui:ForEachRow.Body>
+              <ActivityAction x:TypeArguments="sd:DataRow">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="786,827" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Flowchart sap:VirtualizedContainerService.HintSize="744,636" sap2010:WorkflowViewState.IdRef="Flowchart_4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+                        <av:Size x:Key="ShapeSize">60,75</av:Size>
+                        <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,107.5 300.141666666667,107.5 300.141666666667,116.5</av:PointCollection>
+                        <x:Double x:Key="Width">710</x:Double>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Flowchart.StartNode>
+                      <x:Reference>__ReferenceID4</x:Reference>
+                    </Flowchart.StartNode>
+                    <FlowDecision x:Name="__ReferenceID4" Condition="[row(&quot;FINALIZADO&quot;).tostring = &quot;SIM&quot;]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <av:Point x:Key="ShapeLocation">260.641666666667,116.5</av:Point>
+                          <av:Size x:Key="ShapeSize">79,87</av:Size>
+                          <av:PointCollection x:Key="FalseConnector">339.641666666667,160 400.141666666667,160 400.141666666667,236.5</av:PointCollection>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <FlowDecision.False>
+                        <FlowDecision x:Name="__ReferenceID2" Condition="[row(&quot;STATUS&quot;).tostring = &quot;GERADO&quot;]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <av:Point x:Key="ShapeLocation">360.641666666667,236.5</av:Point>
+                              <av:Size x:Key="ShapeSize">79,87</av:Size>
+                              <av:PointCollection x:Key="FalseConnector">439.641666666667,280 469.641666666667,280 469.641666666667,279.52 470,279.52</av:PointCollection>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <FlowDecision.False>
+                            <FlowStep x:Name="__ReferenceID3">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <av:Point x:Key="ShapeLocation">470,254.02</av:Point>
+                                  <av:Size x:Key="ShapeSize">200,51</av:Size>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Flowchart DisplayName="Procedimento Browser/Preenchimento" sap:VirtualizedContainerService.HintSize="634,636" sap2010:WorkflowViewState.IdRef="Flowchart_3">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+                                    <av:Size x:Key="ShapeSize">60,75</av:Size>
+                                    <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,124.02</av:PointCollection>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Flowchart.StartNode>
+                                  <x:Reference>__ReferenceID1</x:Reference>
+                                </Flowchart.StartNode>
+                                <FlowStep x:Name="__ReferenceID1">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <av:Point x:Key="ShapeLocation">200,124.02</av:Point>
+                                      <av:Size x:Key="ShapeSize">200,51</av:Size>
+                                      <av:PointCollection x:Key="ConnectorLocation">300,175.02 300,206.04</av:PointCollection>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Preenchimento" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
+                                    <uix:NApplicationCard.Body>
+                                      <ActivityAction x:TypeArguments="x:Object">
+                                        <ActivityAction.Argument>
+                                          <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+                                        </ActivityAction.Argument>
+                                        <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="882,5844" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                          <Sequence.Variables>
+                                            <Variable x:TypeArguments="x:String" Default="[DateTime.Now.AddMonths (-1) .ToString (&quot;MM&quot;, new System.Globalization.CultureInfo(&quot;pt-PT&quot;)).ToUpper]" Name="v_ICMS" />
+                                          </Sequence.Variables>
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <uix:NCheckState Exists="{x:Null}" DisplayName="Check App State 'IMG'" sap:VirtualizedContainerService.HintSize="840,5750" sap2010:WorkflowViewState.IdRef="NCheckState_1" Timeout="20">
+                                            <uix:NCheckState.IfExists>
+                                              <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="536,5524" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <Sequence DisplayName="Conversão de valores" sap:VirtualizedContainerService.HintSize="494,359" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <Assign sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_1">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="ui:GenericValue">[decVal]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Valor").ToString]</InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                  <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim culINfo As New System.Globalization.CultureInfo(&quot;en-US&quot;)&#xA;Dim nfi As System.Globalization.NumberFormatInfo&#xA;Dim mySizes1 As Integer() = {3, 2, 0}&#xA;nfi = culINfo.NumberFormat&#xA;nfi.NumberGroupSizes = mySizes1&#xA;nfi.NumberDecimalSeparator = &quot;.&quot;&#xA;nfi.NumberGroupSeparator = &quot;,&quot;&#xA;out_value=in_Value.ToString(&quot;N2&quot;, nfi)" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+                                                    <ui:InvokeCode.Arguments>
+                                                      <InArgument x:TypeArguments="ui:GenericValue" x:Key="in_Value">[decVal]</InArgument>
+                                                      <OutArgument x:TypeArguments="x:String" x:Key="out_value">[result]</OutArgument>
+                                                    </ui:InvokeCode.Arguments>
+                                                  </ui:InvokeCode>
+                                                </Sequence>
+                                                <Sequence DisplayName="Tela ICMS" sap:VirtualizedContainerService.HintSize="494,5031" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRE" sap:VirtualizedContainerService.HintSize="452,4937" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="Simulate" Version="V1">
+                                                    <uix:NApplicationCard.Body>
+                                                      <ActivityAction x:TypeArguments="x:Object">
+                                                        <ActivityAction.Argument>
+                                                          <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+                                                        </ActivityAction.Argument>
+                                                        <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="418,4721" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                                                          <sap:WorkflowViewStateService.ViewState>
+                                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                            </scg:Dictionary>
+                                                          </sap:WorkflowViewStateService.ViewState>
+                                                          <uix:NClick ClickType="Single" DisplayName="Click 'ICMS:'" sap:VirtualizedContainerService.HintSize="376,166" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left">
+                                                            <uix:NClick.Target>
+                                                              <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR" DesignTimeRectangle="585, 289, 195, 15" ElementType="InputBox" FriendlyName="'Selecione Receita'" FullSelectorArgument="&lt;webctrl tableRow='2' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='' tag='INPUT' type='text' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAMcAAAATCAYAAAAkqhn/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI6SURBVGhD7ZdLcoYgEIRzRi/jVTiK6+yzsnIIVx6BMINAM4Lm8ZvyT/qrGquQx0DRLfiyrqtnMBj7UHO8vr0zGAwT2RyEkBqag5AONAchHR5ojtm7wYXnN1gmP46TX7bis7NMox+nv7Ka/0vHHIufxsEPA4Q7k/0PzPFryBzrdV0t4tldn4NcQ9Mc+w0NZnFnX/ZnMcfoy9Js+fHQHM9Lwxzx1Dg6KGTD9yeKMYdclfIXGgVoTiXpb69Vsyv18F6F5lwZF/t08yHWDHat9dxQ1NWaU95OznytwnWE0DzmHY1zX9rXKtxA4xLZeHwnoolFNIcRIYhfRZb7bycSmkMFVwsttde+2RAo7H6+mkY7MLSar1SG8WNbnQOMNweDzgc58Z+jHtNixiC34vSHXAUpJtk2Ppch4ubLRm9CU9HZdlJXBFeBYhZjgvniWHFcKzQpa9NuPovMsdemPjVSyPg5D3KQ89gcNg/NcVdOzREpX7j9ZiesOVrivNIcrXwW/FJHo5Txomh3Jgj0zdHOeWQOKZf14XzI3WiYA0SeACHoFQPrQ92kBexnhRfeTHDyZHEEQX7xWtU0x0G+GivG2C9NR+eW5iHMYW2hoHOA9+Va1c55Zo5cNmsl96J5ckQDpGNfojaLiijX4Ze4Nk117UBD2J9eNIeA/zyVKPdCK8P28iHWHIGtXxzXXnnKeqo1p7E7OdEc2EarsU84RWmO+/LJaxUh/w+ag5AONAchHbI5GAxGHWoOBoNhY/UfnFfJe2+4AZwAAAAASUVORK5CYII=" InformativeScreenshot="7d062696a6da942dd0e2db718848ccb0.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR' /&gt;" SearchSteps="FuzzySelector, Image" Text="Selecione Receita" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='INPUT' type='text' /&gt;">
+                                                                <uix:TargetAnchorable.Anchors>
+                                                                  <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                                                    <uix:Target DesignTimeRectangle="260, 290, 35, 13" ElementType="Text" FriendlyName="'ICMS:'" FullSelectorArgument="&lt;webctrl id='lblcmbICMS' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl id='lblcmbICMS' tag='SPAN' type='' aaname='ICMS:' check:text='ICMS:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACcAAAARCAYAAABegLWFAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADySURBVEhL7ZNBDoQgDEU9H4fiJJyEM0xYmJiQuPMCHKFDi3VKxQwxzsSFix9D+YXHbxxSSnBXPXBn9cCd1Q5ucQZew1Bk/WcvOghcJxmYoqhLb9Zs0WNh5pq3olf0ix6tZnIE2AAbvfBhDT20ZyAYcRnW8jowHHkEKCrDVuc11AWHKQQXK88mvjhfxh7sH50AwtSMg0X2Sa0P1El2wEWYjEpNakvFw8hfBKnSKmccjvP3cGsfj7+C0/4C+r+x0prT0/W99B0tXfRDHCVU6nieflz1YPJ2jJVHQ2oAbnvfEqrqmKjsVZPohbuTHrizujFcgjchqz/UBoTIywAAAABJRU5ErkJggg==" SearchSteps="FuzzySelector, Image" Text="ICMS:" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                                  </scg:List>
+                                                                </uix:TargetAnchorable.Anchors>
+                                                              </uix:TargetAnchorable>
+                                                            </uix:NClick.Target>
+                                                          </uix:NClick>
+                                                          <uix:NClick ClickType="Single" DisplayName="Click 'ICMS APURADO NO PERIODO'" sap:VirtualizedContainerService.HintSize="376,166" sap2010:WorkflowViewState.IdRef="NClick_4" KeyModifiers="None" MouseButton="Left">
+                                                            <uix:NClick.Target>
+                                                              <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR#" DesignTimeRectangle="585, 332, 214, 20" ElementType="Text" FriendlyName="'ICMS APURADO NO PERIODO'" FullSelectorArgument="&lt;webctrl aaname='ICMS APURADO NO PERIODO' parentid='containerConteudoPrincipal' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='ICMS APURADO NO PERIODO' parentid='containerConteudoPrincipal' tag='SPAN' type='' check:text='ICMS APURADO NO PERIODO' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAANoAAAAYCAYAAACcPeNkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANLSURBVHhe7ZgxbuQwDEX3jHMZX8V3SLeV6/SpBjnEVHMEr0iKNklJjox1VBj/AUbGEkVSJP8MkD/v93v9/PpeAQC/A+kLQgPgl4HQABgAhAbAACA0AAYAoQEwAAgNgAE0hPZc58djffAzrcsrLyees67nZ36adW+7vpZ1SjbTtvhal6l+vo7azymjndcyeR/TkiwJytvbylrOK+djz5bhO2NWz8b6hHpYNJct9wSv+bjd/vie1nbPr5a7xi36ueXje2XvGv0d7cV9pf9e9+DgF80MaIaLYwcj8ZzFhvamKRXZVJX2ptQsFRrbuIqmZs7en4MGL8Vb0rmimS5Oyovfe4Rm9iuD3RtT/GpcYc8jw/7rg6axZxsn5HPKn70nwbbyXua+E3vi30VsPoXky82A1EHPXF6nm9AvtDAEEWnQMzVGbdL5PLDShLJpP0FN47PP2TWmaCbtc/Mp55ijuUdxh3DHRHdM5si3UD+XUHv6q4NrfZz1V9xlr3f7DF3TC83bxp6V9WK2+rdi/UedbkK/0Ewxa2jDqGD6l+rmGkk+6NstfMPVoSZrfMplb05syv4N6e2EgyYXd+qPKZhBbNWntW5yofzZh83vrD/O1/SLfck756511yf78EKLwgrvDZHY9cvrdBMuF5qcazVyh8Vh7ApCPOunGJytsV4cgrkHD4Q5F2P/FPPKAbJDS5/Jxq6d9cf3NHczvavnLmx9yI83g9Cuol9orSJn4lDqZ7teEmIY4gDwkxvRHpyaP1ozA+0++8E6H9PEa9SnmWuwp9jzEvM74c/mEmifkbi2V37Yg9BaMYxILq/TTegXWqJsBK2JjW2YZV8nf6HAjaJXbbnpEqt3cAi21ZxjPH7XO56NSfY+FtfH2rB/L+aNai4k7n3tlD/Ox/dLOVMvHzMKLftyM+DrcHmdbkJDaFIc+Vb3zeMibXt7AWPDFLvOTTBn47/QN+gbslJ1Ok++jgYnWfFwVGPE4SYoVrKb/3bE3HzKU0vB16c++EwlFzlbW+vwl04dCm3zkZ8slrJvuX7Tx/ph6mjvGv0d7cV9pf9e9+DgFw0AcBUQGgADgNAAGACEBsAAIDQABgChATAACA2AAUBoAAwAQgNgAJ9f3+s/vDAt8DKi7NIAAAAASUVORK5CYII=" InformativeScreenshot="054133de38b0dd4654ec8c4f4e713882.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR#' /&gt;" SearchSteps="FuzzySelector, Image" Text="ICMS APURADO NO PERIODO" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                            </uix:NClick.Target>
+                                                          </uix:NClick>
+                                                          <Delay Duration="00:00:02" sap:VirtualizedContainerService.HintSize="376,22" sap2010:WorkflowViewState.IdRef="Delay_2" />
+                                                          <uix:NClick ClickType="Single" DisplayName="Click 'IMG'" sap:VirtualizedContainerService.HintSize="376,166" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left">
+                                                            <uix:NClick.Target>
+                                                              <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR" DesignTimeRectangle="946, 485, 80, 20" ElementType="Icon" FriendlyName="'IMG'" FullSelectorArgument="&lt;webctrl name='btnConfirmar' tag='IMG' /&gt;" FuzzySelectorArgument="&lt;webctrl name='btnConfirmar' tag='IMG' type='' aaname='Confirmar' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFQAAAAYCAYAAABk8drWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAONSURBVGhD7ZbNK3VRFIfv1NjHkDARiSLkMzIgMlHKEImJEkqJUkRJ3DJQKAORpJgoZSSZGJkYGJj6N9bbs2vt1j1363S5o7d96umuj99vn3XW5ZCReBX1igst8pWz0EwmE/kF9vIZjc3NTfn+/o4UiF1q3kK/vr4iBZC60M/Pz0gBpC704+MjUgCpC31/f8/h9PRUJicnpbe3V0ZGRoKag4MD10ODFo/tLy8vy8PDQ06NXM8iRpNEzyFWH56kjtrLy4vXaE1zRb2hOs+QrNt7KEld6kLf3t48GxsbUlFRIYuLi3J8fCx7e3vS3d0tExMTXkPc3NzstGjQ4iFXTUlJifNpDmi1RlxbW+u8FurqV5/e3+qoMYNq0DOD5go1exbc3987r/UraO19gDlnZma8JnWhr6+vjsfHR6mpqZHz83NfU6jf3t7K0dGRi9HaPh6G1zqDDQ0NycLCgtfg7erqyotD4NcYHXrbh6amJl9Hj25nZ8f3ianZs4CZ1tbWZGpqyn3aXlILPJOtpy70+fnZsbq6KuPj4z4PQR9dWo8B+LVm+dfX166WzWals7MzLw6BX2N06G0/eTb65Pw6jz0L8OE/OzvLmyGpBXR4NE9d6NPTk2N+ft6heYiOjg7Z398P9qyfwfjkfDzE+GxcXl7ucgs96wfqjY2NObrq6mpZWVnJ0d/d3bkztUZMzZ7FfQcHB33OuRcXFz5Ha++j9+JVpJrUhfJtwezsrEPzEO3t7bK7uxvsWT+DaX1gYMDV8eGnRtzQ0OA+LeqxfjzqB2K8Nzc3eXrutb6+7iC2PRgbG/PzAGfzR1X7aO08aPFoH1IXyksaDg8Ppb6+3ucW3jsnJycyPT0to6OjQU1VVZU7g5jBtH55eel6nNHW1uZqW1tbPg5h/ejQ235yDtVzD+pAbHvMUVZW5rwWavSs1tLf3+/PgtSF8k0rra2tMjw87OKrqysH33Zpaal7lwDx3Nyc7wN/gFpaWnzOYLa/tLTkfKrhTKtPYv3o0Nu+zqG56rWu89oeMzOnehRq+jzJuYHZ+/r6/I5SF2rNDMED6MPX1dVJZWWl+/FXDbHWrVYfAEKD9fT0OB3xXxcKnMfDEls9ddBce8xsn0PhbHrEobnBfkGpC+WlnIR/ZvmXYnt7O9gHemjQhvr/K79aaORn4kKLTFxokUldaKQwflwoF41I4dgrN4vXn6+40KJeIv8AAUsMsOBats4AAAAASUVORK5CYII=" InformativeScreenshot="862ac664750b122ebb6830b94f6effea.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR' /&gt;" SearchSteps="FuzzySelector, Image" />
+                                                            </uix:NClick.Target>
+                                                          </uix:NClick>
+                                                          <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into 'Identificação:'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="376,226" sap2010:WorkflowViewState.IdRef="NTypeInto_2" Text="[row(&quot;IE&quot;).ToString]">
+                                                            <uix:NTypeInto.Target>
+                                                              <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=CONFIRMAR" DesignTimeRectangle="452, 317, 148, 17" ElementType="InputBox" FriendlyName="'INPUT'" FullSelectorArgument="&lt;webctrl name='txtIdentificacao' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl name='txtIdentificacao' tag='INPUT' type='text' aaname='' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAJgAAAAVCAYAAAC67CcnAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEQSURBVGhD7Zo7CoNAGAZzBHvxcRm19wDeUnxcxGNYaClu+H4wZCGGKNluBgbU1W5A2P0f8zw7xFC+AlvX1W3b5vZ9dwB3UDtqaFkWPzDFJdq2dWVZujRNXRRFiD+rZtRO3/fW0hGZBabquq77+CHiVYdhsKZegQnVp8Wmaewa4ArTNFk7akj96HfpBRbHsS3qxbqu7RnAFdSOGsrz3O69wLQgBYHBXd47IjD4OwQGQSEwCAqBQVAIDIJCYBAUAoOgEBgE5TQw7b5qgZ18uMvpTr7Ojd7PIquqshcAfuXrWSTTFPhPx3H0pymOeTBFVhSFS5Lk44eIZ2ZZZn8+jeoIbx7siEzVAdzldKIVMYyzewIXMF7wwsGX3AAAAABJRU5ErkJggg==" InformativeScreenshot="5dd577c040a228402c51c9e2034cd1de.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=CONFIRMAR' /&gt;" SearchSteps="FuzzySelector, Image">
+                                                                <uix:TargetAnchorable.Anchors>
+                                                                  <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                                                    <uix:Target DesignTimeRectangle="260, 319, 85, 13" ElementType="Text" FriendlyName="'Identificação:'" FullSelectorArgument="&lt;webctrl id='lbltxtIdentificacao' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl id='lbltxtIdentificacao' tag='SPAN' type='' aaname='Identificação:' check:text='Identificação:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFkAAAARCAYAAAC2AACuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVFhH7ZZBjsMgDEU5Xw6Vk+QkOUPVRaVIkbrrBTgCAyQ2tnFmSEuYRVn8BcXg7xcb1VhrXde16pAbqENuoA65gd6EvLplMO5mjHvM2n5tpXw3M7hl1WIqap3cPeQaJveys3uY0T21uEJlkF/TsBfzW1EVIUNBpJDnuN19n9a4Bk+wtvMY1xsEclclhXwxF+QZZzWuVHonsy+p7F8MWQqgt5ma+joBmY5sEhaOsEAALYzbtl7IlGxdCXtEvmto52aTFTxl/nJv6lkv9qGgU1HBs+KJcpB10r2DCSuGzEdYdDLEw1ixMUum41k0uX8EufaSz4N8Pri/wqmSeQqfHJab5fX78jn5DDKAgveZF6Z1TFQ8nzpZdnYVyMr5JKUr97jsTiKtnhCHv+MbLWvTdRIyXHYAGZNT/Rdk2eE87yFk0Y3Ui/RVGbI0LNZYKP0n4g3E839AVoyegpx5A8G94EnkORht2TDMi+Ty7nOBSVDSJBcWhqCJiiAniFHe8DnI4Y4EGhRi81qCUl6Ewvb0OrPcIAq0FPJXKsIh8CvryyGnrsVOvUC9kxuoQ75c1v0AupU40k43CfoAAAAASUVORK5CYII=" SearchSteps="FuzzySelector, Image" Text="Identificação:" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                                  </scg:List>
+                                                                </uix:TargetAnchorable.Anchors>
+                                                              </uix:TargetAnchorable>
+                                                            </uix:NTypeInto.Target>
+                                                            <sap:WorkflowViewStateService.ViewState>
+                                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                              </scg:Dictionary>
+                                                            </sap:WorkflowViewStateService.ViewState>
+                                                          </uix:NTypeInto>
+                                                          <uix:NClick ClickType="Single" DisplayName="Click 'IMG'" sap:VirtualizedContainerService.HintSize="376,166" sap2010:WorkflowViewState.IdRef="NClick_5" KeyModifiers="None" MouseButton="Left">
+                                                            <uix:NClick.Target>
+                                                              <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=CONFIRMAR" DesignTimeRectangle="941, 315, 80, 20" ElementType="Icon" FriendlyName="'IMG'" FullSelectorArgument="&lt;webctrl name='btnPesquisar' tag='IMG' /&gt;" FuzzySelectorArgument="&lt;webctrl name='btnPesquisar' tag='IMG' type='' aaname='Pesquisar' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFQAAAAYCAYAAABk8drWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPHSURBVGhD7ZbLK+1RFMdNjT2GnhORRxFCSklEEkXChDxKShmQiCJK8shAHpmcSFJMlJKBZGJkYmBganr+hH3vZ9f6tX4vv869R7duv8Gnvfd6fNfa65zf75yMZDJpYtJHPNA04xpoRkZGzB/gmqEe5urqqvn6+opJET1U30A/Pz9jUiByoB8fHzEpEDnQ9/f3mBSIHOjb25sLbHNzcy4uLy+/9cPJyYkTw7m5udkyMTFh7u7uHB88Pz9bu8QQj038xAf1Rg2pg1/r0uPg4KDV6+zsDMwHaun7ADpyD403DiIH+vr66qKpqcn09/eb2dlZy9jYmMnNzTVbW1uBfuHw8ND6ie/o6LDx2PCRf3t7a/2JRMKeicNPHPFVVVXm8fHRxmCnDnuN1GKPX2qiXVxc7PSBJnrU0PnLy8tO/9pOjuQL3nsLkQN9eXlx0djYaA4ODly2jY0Naw/zazIzM322mZkZs7i4aPfkc/bGtLe3O3b0pZ4Gv8ToPrRduL+/92lwvr6+NpWVlXYVe1g9fW8hcqBPT08uGhoazN7ensu2vr5u2traQv2aiooK09fXZ05PT30+HqGioiKf3etDnzremOnpaQt73Qf9kTs/P28fX50joE9v7LUOfFePu2hb5EAfHh5c1NfXm56eHjM1NWUZHh42hYWFZnt72/HzLfQi/pubG5ufk5NjaW1tdeoQQ77U8oIOa1ic9MQev9QEapSXl1sNVvqml6Bc7NxJfOjQK5oCGqxaAyIHyieqqaurM93d3WZ8fNzh7OzM5d/c3HTlhMGjRH5BQYFdySM/KPbq6soOg31YnPTDPqwPdJaWluwdqMsZO3t+tESDM3H40CkrK7MrYOfMu1RrQ+RAeaFramtrzdrams8ufOff3d01XV1dPvvCwoLNY5+dnW2Oj48dH/vz83P7DmxpabE29EtLS50YYWBgwIyOjtq97gN7UE9oYKc+e3IF+pSeiJG9QE/5+fmuXiFyoHyCmpqaGrOysmIuLi4Cqa6utp9gkA+ysrLM5OSky9bb22t/dNiPjIyYkpIS+47lTGxeXp7N07qc+bbImXjixKb78GrC/v6+1WCltrcnQA8/Ouh5/fSNtp5P5EC9IlEDwy/vTY00xIVpFLDJqi9Lk5LDILg4KxfQgxa71MQvGth0n/hEE8hFAz32EqehD/LCBspdqK9tkQNN/P5f+BPwy8tfpZ2dnUD/0dGR9YOch4aGfHESg9/r8+LV/An+2UD/V+KBppl4oGkmcqAxqRE6UBlqTOq4ZqgPMX9PPNC0kjS/ADTSyn2wJCCBAAAAAElFTkSuQmCC" InformativeScreenshot="ce53f7301f19d7e25c4b78441a21b877.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=CONFIRMAR' /&gt;" SearchSteps="FuzzySelector, Image" />
+                                                            </uix:NClick.Target>
+                                                            <sap:WorkflowViewStateService.ViewState>
+                                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                              </scg:Dictionary>
+                                                            </sap:WorkflowViewStateService.ViewState>
+                                                          </uix:NClick>
+                                                          <Sequence sap:VirtualizedContainerService.HintSize="376,3475" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                                                            <Sequence.Variables>
+                                                              <Variable x:TypeArguments="x:String" Name="Mes_" />
+                                                              <Variable x:TypeArguments="x:String" Name="__Julho_" />
+                                                              <Variable x:TypeArguments="x:String" Name="branco" />
+                                                              <Variable x:TypeArguments="x:String" Name="ano_comp" />
+                                                            </Sequence.Variables>
+                                                            <sap:WorkflowViewStateService.ViewState>
+                                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                              </scg:Dictionary>
+                                                            </sap:WorkflowViewStateService.ViewState>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click 'Selecione Receita'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_6" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="509, 518, 239, 15" ElementType="InputBox" FriendlyName="'Selecione Receita'" FullSelectorArgument="&lt;webctrl parentid='divReceita' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl parentid='divReceita' tag='INPUT' type='text' aaname='' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAPMAAAATCAYAAABFsju9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI/SURBVHhe7ZjNbcMwDIU7o5fxKh5F5957MjqETx5BlURV/DGtpI0TxMb7AAKxREp0wCcx+VjXNcJgsPNbEfPn1zcMBju5NTEDAM4NxAzARYCYAbgIh4l5noY4zfXhjzwS+3YsIY5jiEt9BOBV+GKepzgMg7AxhhvVeQZBLmE07zXFp6achf3sPQCobMXsFWAS9y2hnkbMIkn7fDgQM3ghWzHnW7nXJpYC3d7YWsxLDCPfgKO81tWtT/EqVq3PQiDhpUPFmevuJ9iI17xrzuN3DeWncuJcXf/sW9bUOdE+ZgxCBwfitNmy4Gx7PScxibFWuFqQ+TMLKq9XY4ooRHy98Tk2ry+ELcRGLTIXv9xjdz+DFbOM8+bcnNI7TClm1198J+VzR7CbwwWAB+j/AVaKkYTdCrU+29uFi9/ePmRlLovTKV5XCAU+PGzh52cSYmc/Q1lD+PABQDnIuTa/yYm4y798X0bMqjNJ5iUKwD/oi7nShOQVZ8WK2a3RJ4rZ3c8g1yBh+ze9oiPmm/72+yrP3DXYdwLgETZiZpEwXLjUcsr5OVDhspjps/rdPQcqYFPMybHEcOyNNlsUvsxzdz+Dt8ZeG58GYvBySuOtzfb88zt2xawPEIgZHIVzM1PxylZQibsUpJivxSjFnJxM6ysKWrWZNK5i1foc5wmR8+rsJ7BrZIqgRB68hjh0VE487vpnX3GwNJ86JmPG9NseYgZHcVebDQB4fyBmAC4CxAzARWhihsFg57YiZhgMdnZb4w+7jofyeMk82wAAAABJRU5ErkJggg==" InformativeScreenshot="649a41cc7631698e52b4af70cfec02eb.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image" Text="Selecione Receita" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='INPUT' type='text' /&gt;" />
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click '0120-6 -'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_7" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="509, 533, 246, 36" ElementType="Text" FriendlyName="'0120-6 -'" FullSelectorArgument="&lt;webctrl aaname='0120-6 - ICMS COMERCIO - OUTROS' parentid='divReceita' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='0120-6 - ICMS COMERCIO - OUTROS' parentid='divReceita' tag='SPAN' type='' check:text='0120-6 - ICMS COMERCIO - OUTROS' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAPoAAAAoCAYAAADXGucZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAS4SURBVHhe7ZtNkuMsDIbnjL6Mr5KjZD37WbnmEFmlspyVBwTYoB/AHXdXt3mfKuorywKDpBfc43y/ns/n+vvP3xUAcD1erxc1CB2ACwOhAzAAEDoAAwChAzAAEDoAAwChAzAAEDoAA9AQ+mO9z9M6TbHNd2fRCH63JV7mPO7rnPpbYyy3/b5r6jgmy3rL+s53fYZHWW77mNM0r3zY8n5o27zTesRaUzz5eOUaxHgVHvdZ9BMxYPGdppt7Ysk2jnhomlvWR4yXWvJhdROblZtaLOt5kM85K/9Xoyp0CnKWeH7NAy0LMxTJHvzonzvSRpAlkF/XoILr9P0AVPxCrLHwNXuyxXnNbq1FTLx9dvZizjxGEe8rA5qRYs9F6+27LQi4jJFpE3ML9tnZpdD5c3PC3Io1xQ2/XFJHLB3VPJQBVmzAYwtdE5yZ4BBgGd9lvRcDyKRZm0d7Zw5+n5lTrcD0omOkOJGwk6+fr4vn8sbGltMUm0MVV4DHPa1r8f/d7D6vcR35s5rP1nIobV2xdGh+NH+t70fjeXEaQmfJNINoCV2ivSVwUUvxK8S5+FNzf3U7N8GywDo3oUwIaX00ll+TiGE8hToKPqcrRhVB8rXt1/sGuuXmDKFTn3zdnbF0HMtDfy2OhC10LZlvCp0SVoypJywv4tAnCTnzFYWTfCtip/nvY7XEZRVYs4jy2G3PzK/5HKPYD8xtE2EFOf8Mlt/Cl+5lc+C1kO6LlnxCnPR7ic5YOuQ6avVW2wQCVF/Z3Hrm8NP5shPdEqFWsLnQTXjxEefu5pbQWwLjcyvWaMYwJwrFEqnj4zEK8LWV10yEqtD1cQMsTuTP19wZS8exPJxbA1ehIXSWHDPB9eCGHVQvDFmwnQVQORnPSrIsMN0mqAmhS+iOlpiaYnPQs/R48LhX18Wf1Xy2zCGNz/p0xdKh+dH8tb698R0MW+gOXgxSlAlLYCHh1WTyxBxIFE+2VkzvoBdiWKtqT7YjQve+InAxbmqsE9FHPMfbd1uISRlP02bl6QShe6Q4O2LpqOahiJFmA56q0FPCtr9nRLDZ/di2OMcThd8Xr3FUOPv9/jzx59eK7xhUlNu4fONprPuI0I2xel5pPeU8jb4svtrcjgs9H4+PG9Yk16AJux7Lo3nojdtoNIQOALgCEDoAAwChAzAAEDoAAwChAzAAEDoAAwChAzAAbaG/8Q2WvoHSB9H4/dRsYczwQw52z/i2K74fqx/f3/tGDcBVqAo9CE/5BZVmqwq9xLLLcaJQC99o0/yafR3+ByvG5gHAVbGFHn/Vph2UXKifJ3Rpo2vlrcKNSm8N+7D8GoBxsYVe+RmnKr5PEXoQa/6qbfV1vekE333jiW6sAYCRMIVuiZdgm8CpQnfCzlvpxsVcIsdNYs8bhA/G4xuf6PI091h9W5tAgvpD7GAwbKF/h7/RlTmQjyrUzr/Jxf89BsD1sYXuCKJq/6t7EllxmtIbgS6obqF7xDjxdbzwU2zGv67TsxU7AFemKnSChObEsTXjtTeevruffWoeErqD/Nl4wZY1ZTzhY/gBcHXaQgcA/HggdAAGAEIHYAA2of+D0AG4LBA6AAMAoQMwABA6AAMQhP5a/wMqfgFxNe1YlQAAAABJRU5ErkJggg==" InformativeScreenshot="ff96e867af8c10a2bc0ece7070c163d0.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image" Text="0120-6 - ICMS COMERCIO - OUTROS" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <Assign sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_2">
+                                                              <Assign.To>
+                                                                <OutArgument x:TypeArguments="x:String">[data_vencimento2]</OutArgument>
+                                                              </Assign.To>
+                                                              <Assign.Value>
+                                                                <InArgument x:TypeArguments="x:String">[data_vencimento.tostring.replace("/","").split(" "c)(0)]</InArgument>
+                                                              </Assign.Value>
+                                                            </Assign>
+                                                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into 'Data de Vencimento:'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,226" sap2010:WorkflowViewState.IdRef="NTypeInto_3" Text="[data_vencimento2]">
+                                                              <uix:NTypeInto.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="452, 531, 148, 17" ElementType="InputBox" FriendlyName="'INPUT  dtVencimento'" FullSelectorArgument="&lt;webctrl id='dtVencimento' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl id='dtVencimento' tag='INPUT' type='text' aaname='' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAJgAAAAVCAYAAAC67CcnAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEQSURBVGhD7Zo7CoNAGAZzBHvxcRm19wDeUnxcxGNYaClu+H4wZCGGKNluBgbU1W5A2P0f8zw7xFC+AlvX1W3b5vZ9dwB3UDtqaFkWPzDFJdq2dWVZujRNXRRFiD+rZtRO3/fW0hGZBabquq77+CHiVYdhsKZegQnVp8Wmaewa4ArTNFk7akj96HfpBRbHsS3qxbqu7RnAFdSOGsrz3O69wLQgBYHBXd47IjD4OwQGQSEwCAqBQVAIDIJCYBAUAoOgEBgE5TQw7b5qgZ18uMvpTr7Ojd7PIquqshcAfuXrWSTTFPhPx3H0pymOeTBFVhSFS5Lk44eIZ2ZZZn8+jeoIbx7siEzVAdzldKIVMYyzewIXMF7wwsGX3AAAAABJRU5ErkJggg==" InformativeScreenshot="7dc59d43d0a9fbcd6153a8a26ef7fe63.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image">
+                                                                  <uix:TargetAnchorable.Anchors>
+                                                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                                      <uix:Target DesignTimeRectangle="260, 533, 127, 13" ElementType="Text" FriendlyName="'Data de Vencimento:'" FullSelectorArgument="&lt;webctrl id='lbldtVencimento' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl id='lbldtVencimento' tag='SPAN' type='' aaname='Data de Vencimento:' check:text='Data de Vencimento:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAIMAAAARCAYAAAD+Mx8uAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIeSURBVGhD7ZXJbcMwEEVVn4pSJapENQQ+GDAgwDc3oBIY0eQs/Fwk2UrgIHN4QBQOZ/1Dd8uyOMPwmBgMxsRgMCYGg/lwMUzu2nXuq+vdbS6dG2eSi2Ee3eU5gJTrBHY1+P7g7qXzQ7wohkoOj7EP9QxTan8S9yH06jLOxfOf4qy4dTH0o3vE/1GwXU38BDEss7v1eI/+d0DYf4RfFQM2lzdMERpMw1OsAqrblyj40EOdhvQsyVOgmNKg6Ffb13ypHtxoEVYkZxEW4eNgTBrSdaQFWfELpeOqBeOli5Af8Tuq3oRly3sbe8VLGVF18x1Y7p1iUIXhEPElwG+keY7bCy9DbGLepMJGYB1wt+mLc4x50PCevuovDObDw4V7YQhpbcGWRF9bvtAz8otxuLZK7TT8k8VQ2t6WGBr2muxuqWEFoChCN1j/LWcFvC/sgf4u1heoiSH0DEWkB17qT8Dbot9aHDyXvpD/Qs8VL/xMYFEQKGvWhr0mi10WA2/AFrz98XlVNTV9YR76O6tPeF8MItaW371ikNpOFEMaDBPHQLXvmr2mZhu/6bnTd32+lZeB7/f9syZpzkrLF/Yg+cahCq+LQWz1K+f9edstMWTDx/zf/pkAdOHsLEGayoV51oBb9gnF+CSOFR6iAorSSC6FeDVfTTH4uzJYwg8Ch3JEDGmuwh4xpD2L/rCPnPsRMRj/FhODwZgYDMbEYEQW9w3XI/kIhU+aSAAAAABJRU5ErkJggg==" SearchSteps="FuzzySelector, Image" Text="Data de Vencimento:" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                                    </scg:List>
+                                                                  </uix:TargetAnchorable.Anchors>
+                                                                </uix:TargetAnchorable>
+                                                              </uix:NTypeInto.Target>
+                                                            </uix:NTypeInto>
+                                                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into 'Data de Pagamento:'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,226" sap2010:WorkflowViewState.IdRef="NTypeInto_4" Text="[data_vencimento2]">
+                                                              <uix:NTypeInto.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="452, 551, 148, 17" ElementType="InputBox" FriendlyName="'INPUT  dtPagamento'" FullSelectorArgument="&lt;webctrl id='dtPagamento' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl id='dtPagamento' tag='INPUT' type='text' aaname='' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAJgAAAAVCAYAAAC67CcnAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC8SURBVGhD7doxCoQwFEXRWZ0ggWwquxACIZVd9jD9NEJ2ELB0CZGvxTDYDXndPfBArC+p/muapn4cB2NDtm1bX5alz/PcrS0CY5LlnH8De38qY8PWWnsGBoxgLVlTBAYJAoMUgUGKwCBFYJAiMEgRGKQIDFIEBikCgxSBQYrAIEVgkHoEVut9YgGMYC3t+/4NLKV0/WRs1Eopd2B22uqc6+u6Xkdi9rQx9u/s5bK4vPd3YDHG64Ox0Qsh9BMrnujC1AioCwAAAABJRU5ErkJggg==" InformativeScreenshot="70b842c8d5a66f8751e45e1a308c462a.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image">
+                                                                  <uix:TargetAnchorable.Anchors>
+                                                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                                      <uix:Target DesignTimeRectangle="260, 553, 112, 13" ElementType="Text" FriendlyName="'Data de Pagamento:'" FullSelectorArgument="&lt;webctrl id='lbldtPagamento' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl id='lbldtPagamento' tag='SPAN' type='' aaname='Data de Pagamento:' check:text='Data de Pagamento:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAHQAAAARCAYAAAAMo4jOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJLSURBVFhH7ZZNTgJBEIXlIp4CjkA8ASfgBJ6FU7Bg55o1CxcmGjVGFyb+JhqOMOZbvMmjrB7AEIVxFi8z3dVV9fq97oGj5XJZdWgPOkNbhs7QlqEztGXYS0MfJ5Pq4fQ0jXVoxjdD3xeL6uL4uDrv9WpsKi7rMCOLbYOfGEqOc74djarP5+d07b5iFwc5NfTm5KT6uL+v52hyNRiszGX4a0M9h/dta/w1fs1QQCMacuo5/boJMvr17GzlhjCOc01mx7XaWOxXqhHFoB55L7PZSl3Pj18j3Wr2w76yebS57Pfr2NN0WvOjFjVVHz5aJ27S1/cE18hFPF0X8WBeukQ9NjY0CpbN84wNBInhGxaYQyTFSjXZxN14nNaI/Hj3MXAOMg3BiOkASDCHOGQ5bqJzzfiwnrXkZH1jDmtLuuzUUEjo1ADN8/QGaqp18QQL1PONqFfMFySGgxxfo3olDoDDQZx1LmxWj3E8lFmOa+H5qhH1dR6er/o+jrkZtv7kEt/kNmmsWBTDsc7QzMCIKIZQ4gBKhvLu/xnIp37cg+cwbtJCINf1dR5xD1GXmJth4z9FIh7jxNSUp2/Cx+T5QXCsq+mivc3naY0ohlDiQC96qhZr3FC9A96Jx5wmQ3n3Q0GOuPteGZcMJbaTT67/OIMoFGPFrofDOu65bNbHECsZCiCW1RRxxVykmB95giYOcPSe0UTmySWH+tsYClwn6pAHSoYyx/5YL6Oco/cSR60Tvhn6X1E6EIeGf22o36DSzT80dDe0ZegMbRWW1RdsNVjaSoPrAgAAAABJRU5ErkJggg==" SearchSteps="FuzzySelector, Image" Text="Data de Pagamento:" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                                    </scg:List>
+                                                                  </uix:TargetAnchorable.Anchors>
+                                                                </uix:TargetAnchorable>
+                                                              </uix:NTypeInto.Target>
+                                                            </uix:NTypeInto>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click 'Período:'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_8" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="520, 572, 105, 15" ElementType="InputBox" FriendlyName="'Selecione Período'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;div&amp;gt;input' parentid='containerConteudoPrincipal' tableRow='6' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;div&amp;gt;input' parentid='containerConteudoPrincipal' aaname='' tag='INPUT' type='text' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAG0AAAATCAYAAACa0IPnAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAK+SURBVGhD7Va7ruIwEN1vjISg4tFCi5QfgIoOCSkFIFHw6KBMhdDWQBPt/gMVoqVg1h6/xsYBsm9LPtKIxM6Z1xn73i/X6xWihWUo2tfTt2gBmRYtIhxE0QJEFC1A/DbRiiyBrJAvFfEr3L+PC+RpAml+ke8foMggSXPG/Azn8xl2ux1st1uv+UXjQZKEWArvcgyh8Zc8teuq0EgN3puqhVYUbbVawXq99tpms/GIdskhTTKw0mJB3+UZjGgkSZ5zZQF+BhVFm81maPP5HH+n0ymaen4W7V0AFFVNqzmBtmjiClETbV0l3L/Dt7iWfzM8ouFseDx7L+MRuKLRWlFA5Vt/U7B4KWSZPKHs2+/MB/VPeVZcqw7BVbulHInxeKztcDjgdXk6neB4POKv53qkDXCvRVGEXuOJkaJVrfzZJMP9SQ4WQvjyBBsu908EJE0VV5sRisYojeeg7KT51mk+tLH8W/WOPC2G6BvlaZduHV6OwXA41LZcLuF+v8Pj8dD2+h8RMi3o2J0eNNFIUygV3Rju8eTdDBk0lwyBgBkSt7GmeS/iOUAf9Dv5EYpH15kJ386QMpi4JG8JnaNbh3OivRyClA2dsn6/D5PJBG63G+7t9/s3oklYybh/7yRc0Zw8BP6gaN54DnwN4uDxlRA2/o1ovV4Prdvt6ufBYACLxQLXnkSjSSmYosSxp/tF/pwMfzZXAEORi8JRdNIEVgznGK7wr2sgxbrFuc3zxnPgaxAHrtNhZHnmOp9y0ZCn49LhsXn0u3KOQbvdhk6no3+5tVotaDab+Ow5aaJxz1eFBDae7MuIVDSVjPFBGsKFcNYtruXf8LBYUh1t3st4BK4PChRe81XDX4vGQXlWn0id/JqjQ1XKkRiNRlCr1aBer6M1Gg39zO2j6zHi/0IULUBE0QKEFi1aOIaiRQvJrvADiKtmZkSAjCgAAAAASUVORK5CYII=" InformativeScreenshot="39d713dcd95ad0a3ff17180d8f4b533b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image" Text="Selecione Período" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='INPUT' type='text' /&gt;">
+                                                                  <uix:TargetAnchorable.Anchors>
+                                                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                                      <uix:Target DesignTimeRectangle="452, 573, 52, 13" ElementType="Text" FriendlyName="'Período:'" FullSelectorArgument="&lt;webctrl id='lblcmbPeriodo' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl id='lblcmbPeriodo' tag='SPAN' type='' aaname='Período:' check:text='Período:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAADgAAAARCAYAAACIJW/gAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEbSURBVEhL7ZNBDoQgDEU5H4fiJJyEM0xcmJiQuPMCHKGDYqFAx8GJTqJx8RcWWv9ri3DOwZ31AF5dD+AxMtALAS+hYGTPeU1a+hyfpwx73qIa0GroFjO5Om3zezs0qt9MngsoNUxLzMIgA2RvirtNsjBZLv5dfwJcJ+BjOEX8RmEcDXVah5VcatTrWebTxkUoqgiYmh0kYYjNw//Q2K4JhsRgDovkZ5U5BhDhAlSe74wieeUEi7tV4/YCZiqL1poNpwnS90qN1CZoTrkpGWD0VW/C1tNpWtEkvkuodsBkkgNEwywg8XUCIHk/5OHPRtomuL2iGdBaN30fvaIfAGdFSKJWQC6fToCrnZqJkCgK0wp4Mz2AV9fNAR28AQPW1ieBXN9HAAAAAElFTkSuQmCC" SearchSteps="FuzzySelector, Image" Text="Período:" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                                    </scg:List>
+                                                                  </uix:TargetAnchorable.Anchors>
+                                                                </uix:TargetAnchorable>
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click 'Mensal'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_9" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="520, 615, 115, 20" ElementType="Text" FriendlyName="'Mensal'" FullSelectorArgument="&lt;webctrl aaname='Mensal' parentid='containerConteudoPrincipal' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Mensal' parentid='containerConteudoPrincipal' tag='SPAN' type='' check:text='Mensal' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAHcAAAAYCAYAAADAm2IFAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFdSURBVGhD7ZZNjsMgDEbnjLkMV+EorGc/K9RDZJUjeGzzE6BpRBONNLW+J6EKh7iSH3b7tW0bff88CNhAXIpTWZBrDMg1DOQaBnINA7mG+Qy5ayDnAq15C+Y4lytFXRZafMyBRPQcWzz10T8Eci8xIddxYR2FUlktNMcg998zIZclRk8u212DIx9yXCMMP1+kw3WVeCTPF8N7V5+VHJyFgivneeXJILlrjFcdGJB7iTm5Kip/SpFrvD2TEdFqRd5phDbnVGIz6iNflidx43dA7ttMys1CSje1he+6Ni8VkTq3Nqvuh3eehKULseeC3DtMy+3kjHIPC38it6B5isQ0qo86HXKv8YbchrHwLGifsiwpyOa13Mi/w31c9kluzaPdDbl3uC9XGEZz6r6Tzj08P8Tbf+SQe4lzueCjgVzDQK5hOrmygVw7dHJLANgAcg0DuYaBXMNArmF2uRv9AhI7iQLt9FcfAAAAAElFTkSuQmCC" InformativeScreenshot="277e91e206b70cf4f26384b5d38f3bd7.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image" Text="Mensal" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <Assign sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_4">
+                                                              <Assign.To>
+                                                                <OutArgument x:TypeArguments="x:String">[mes_val]</OutArgument>
+                                                              </Assign.To>
+                                                              <Assign.Value>
+                                                                <InArgument x:TypeArguments="x:String">[DateTime.now.AddMonths(-1).tostring("MMMM",new System.Globalization.CultureInfo("pt-PT"))]</InArgument>
+                                                              </Assign.Value>
+                                                            </Assign>
+                                                            <Assign sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                                              <Assign.To>
+                                                                <OutArgument x:TypeArguments="x:String">[mes_val2]</OutArgument>
+                                                              </Assign.To>
+                                                              <Assign.Value>
+                                                                <InArgument x:TypeArguments="x:String">[strconv(mes_val,VbPropercase)]</InArgument>
+                                                              </Assign.Value>
+                                                            </Assign>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click 'Mês:'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_12" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="520, 592, 89, 15" ElementType="InputBox" FriendlyName="'Selecione Mês'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;div&amp;gt;input' parentid='containerConteudoPrincipal' tableRow='7' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;div&amp;gt;input' parentid='containerConteudoPrincipal' aaname='' tag='INPUT' type='text' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAF0AAAATCAYAAADyIwHfAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKsSURBVFhH7VW7imoxFL3fKIhWPlofnaD2WgkWgmChgoKPTgtrkdsJPqqLpZ8gVoKFuawwK6yJR2cGZ/ReOAsWSXZ29t5ZJ8n5dTgcTMjn0or+e/0n5BPpRA/xPISivwCh6C/At4nearXMdrt9G30Nj6z9CZxOJ1OpVEw+n7c/vq9gs9mY6XRqJpPJTQaKDgEikYhjMpk0+/3+bTYY/5pwQZjNZnY/Wif2D3FRP4E+fOEH8fERPovhcGhGo1Egx+Oxba9Eh7jlcvndF0byjwT9X0TP5XKmXq87IWErlUrvRH8EnU7Hstvt2rbdbluyj/ZK9I++Lj4KTr5/A1R0Xk/eFGyMgA/tXK9rNb5eb8Tglffn7uVTwI5c/X7f5sE6jlV09BmLdj+H+isajYbjYrGwz816vTar1cq2GF+JrsH9ZwW+uAW0oeWpQREUDn1uHHPwgS+Ik8b18Ae5FvEhJuOgRS2IgXgqtOa4lc8HRdecsNGuPoT6qX0+n9tcPqrVquNgMDDn89lcLhfH5XJ5/0eKwnnqkFjHJIVgcShETwSJOVALJ7gW8fXq60f2N02x7uXzwRhcw9o1Nlo/FuYRD30eglsoFouOhULBNJtNczwe7Rw+FJ6yu6ITLAqb9997AvMojBsK2jRs3JyCax8RPSifD42htagdLca3gFpw8PTWKbLZrGUmk3F91Nfr9ZztSnRuRsFC4ItkOs9rBh9uHH09EbvdzhYLPvK8wI/QOm/l8+HHINSOvgqKOIjH/wCAOX1mFalUyqTTadeC+EiJRMKNr0Tnxv3rRSCRPjEsFi3F4umjj24CPr5d12p8XecLhjHrupdP4ccgfDv6jIVaUJPWDTK3j1qtZqLRqInFYpbxeNz1yU89LyG+F6HoL0Ao+gvgRA/5PFrRQz6TB/MX8r4MpUVvYdQAAAAASUVORK5CYII=" InformativeScreenshot="7f0677ca94371618653f7173c0f99afa.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image" Text="Selecione Mês" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='INPUT' type='text' /&gt;">
+                                                                  <uix:TargetAnchorable.Anchors>
+                                                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                                      <uix:Target DesignTimeRectangle="452, 593, 30, 13" ElementType="Text" FriendlyName="'Mês:'" FullSelectorArgument="&lt;webctrl id='lblcmbMes' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl id='lblcmbMes' tag='SPAN' type='' aaname='Mês:' check:text='Mês:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACIAAAARCAYAAAC4qX7BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD1SURBVEhL7ZLBDYUgDECZj6GYhEmYwXggMSHxxgKM0F9QsEXkq5dvfjy8A5TSR4sIIcATeEVq/kjEKBiEgEFq8K34SfYiTsMYL0ZG7bb9XBCxhp6VMLkAs8KYMtv5i3RF6CtToUrEG8O7gOuZri9wLCIVWJmLGrD48hHXrCOkSwki7rXkMaGSZNmvutcR0TDHJExIyUrDREVWiTy+XCCts2BjVLdE/PoHYiescUyEjooRC3Q6dURfJOTisa1tEfahW/cUlk/dPIt8EaExLrK9epl9yd2NI+ctIvdGw2KVSNyrRxDBAqUYIeecF/kRr0jNQ0QCfADuHNEtlgxrkgAAAABJRU5ErkJggg==" SearchSteps="FuzzySelector, Image" Text="Mês:" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                                    </scg:List>
+                                                                  </uix:TargetAnchorable.Anchors>
+                                                                </uix:TargetAnchorable>
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click 'Selecione Mês'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_13" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="346, 384, 80, 20" ElementType="Text" FriendlyName="'Selecione Mês'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' parentid='containerConteudoPrincipal' tag='SPAN' /&gt;&quot;, mes_val2)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFQAAAAYCAYAAABk8drWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH/SURBVGhD7ZRLbsQgDIZ7xlyGq3AUlqPuu4p6iKxGOQHFgPEjgUxnGKmV/EtoEogffLbn43a7RVvz1sf9fo+fX9+2Jq0G1PSa9n3Py4BOkgGdLAM6WdOBrn6Jfq0vv9Qrtu/RFoNb4rL4+GhaY6CrT87AIS4Xw1bPOvp7UI7agsv3kXmu0cMd2SbcxcGFgYMLCe+1+kC3EJ2uTHJ8BevfAHUuOgYJ9lza40CfUQOaJIFeVSUDP3auBIojU1auNkp0f7EXtsI/FTbD8KmwJ2fDeEzFx5riYd5g52Oo+yjIB33RvoyhC9DvUGGoRx3Gg+3B5St8DgWe6VLgr9pkWMy+dj7ZlvFrubLilnEliDxGN54SAs1+6y/YtX3+TRXmdtgPsukGQJlYt2RfontwlUsSFFXJuvIZXkSp2bICFVEB9YXgvUAcxFMiH2hTcue+IRftK8eB3OG9M70N6GHkT9QCZqB81Ega6NmF3gn0NJ6S8MFy0UCp20/Umkpy6HYoJUqiIGUk+Tm2PgEtz6KSa5gz8u1A5tmNp6R9oPh+fuawUs4hvdD/LogKjeoCLR+XVhctj2oVqqsmwoGmj9QYsgRxdNi+sBX+yW4EdBiP6RGgoFyg5quCE3kfu3gA1PSMGtBH/kNN17IOnSwDOlkGdLIM6GQZ0MkyoJNlQCerAN3jDwPuWI2ruMkDAAAAAElFTkSuQmCC" InformativeScreenshot="fac6a0901c170ceb43909b28f49ea299.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="Selector, Image" Text="Selecione Mês" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click 'Ano:'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_14" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="346, 612, 89, 15" ElementType="InputBox" FriendlyName="'Selecione Ano'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;div&amp;gt;input' parentid='containerConteudoPrincipal' tableRow='8' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;div&amp;gt;input' parentid='containerConteudoPrincipal' aaname='' tag='INPUT' type='text' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAF0AAAATCAYAAADyIwHfAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJuSURBVFhH7VW7ruIwEN1vjISg4tFCixQ+ACo6JKQUgETBo4MyFULbIQFNtB9BhWgpmM2MHXvsPLh3LzfslXyko9hx7Jk5M+P8ul6v4FguSfTfpz+OJVKJ7lAenOhvgBP9DXiZ6FHgQRDJySfxlb3/G87nM2y3W9hsNrnMFj0KwPM8Rh/Ci1zLwU8SDn39SEz/guVyCavVKpPr9ZqeadEvIfheAIZ+cRKeCfpzRI8giOMLQx/8b1B9Op0SZ7MZPSeTCTEZ4zMtOla5H0KuO5SUdAeYol8g9JNvPDM4o4vEfmOvcb5O/iUWyQvi5GesFdqzgfbRGNrhccpiC6gLBHkRie54fv5oNFLc7/d03ZxOJzgej/TEecb1wgOwWxCrhL1jjnPhcKwdw/PkHgqM7ZcdpPfi+SxYVgAkOhOa28i1lwFty/pOJjvXtkqQ0Ed9Z2EwGCguFgu43+/weDwUD4fDkx+pdERlnc01hRBmMPY3ci2pMgtqL0uigE6yqHS9F+dC6AJ7Nsh/u3vkzFqjeUZBIWxfOPw4kQm73S6Mx2O43W60ttvtoNfrPRFdQhmxHWOwRc/06RtFz7Rngc6wkqO650WidzodYrvdVuN+vw/z+Vy9S4mug9FAo+KdaH++HoVpx3Bs/BeiULQxBfaF64UFyv3MtWcAk5O+dpTtAtHJtjq/OMnNZhNarZZ6IhuNBtTrdTXPqHQROK8GIwnkHFuX1rnoiWP6DBYMCmm9N/Ya5+t9RaIX2kvARDSQdF+B6AhKrDzf0MPCcDiESqUC1WqVWKvV1Djhh64Xh9fCif4GONHfACW6Y3kk0R3L5BX+AseoI8lvoIz7AAAAAElFTkSuQmCC" InformativeScreenshot="9d08a33fad221fa1efafc0ad1f6782cc.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image" Text="Selecione Ano" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='INPUT' type='text' /&gt;">
+                                                                  <uix:TargetAnchorable.Anchors>
+                                                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                                      <uix:Target DesignTimeRectangle="278, 613, 29, 13" ElementType="Text" FriendlyName="'Ano:'" FullSelectorArgument="&lt;webctrl id='lblcmbAno' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl id='lblcmbAno' tag='SPAN' type='' aaname='Ano:' check:text='Ano:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACEAAAARCAYAAABTnsXCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADGSURBVEhL7ZLNDcMgDIWZj6GYhEmYoeIQCQkptyzACC6BvoTwp6ZCbQ8cnhKw8ftsYM45+rUmBDQhoDaEEvRgLEhLW88ZpCbEKiJAEJe0VXJGqQGhaAkAnDSPX2PzmCAj+QGaTuvSgNeicNaSCfXSvRYErkIo2mDk/2McEC9jK0mHtaDVxwEQTWCKJm5AXAplJukkyvU5QUwOTfTeVQlxmJaK9O9AIPYhRDn+fK8HMeQ66knndPZifYg9f8zD/LImBPQHEI6eQqClM/YiwCYAAAAASUVORK5CYII=" SearchSteps="FuzzySelector, Image" Text="Ano:" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                                    </scg:List>
+                                                                  </uix:TargetAnchorable.Anchors>
+                                                                </uix:TargetAnchorable>
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <Assign sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_17">
+                                                              <Assign.To>
+                                                                <OutArgument x:TypeArguments="x:String">[ano_comp]</OutArgument>
+                                                              </Assign.To>
+                                                              <Assign.Value>
+                                                                <InArgument x:TypeArguments="x:String">[now.tostring("yyyy")]</InArgument>
+                                                              </Assign.Value>
+                                                            </Assign>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click '2022'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_20" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS#" DesignTimeRectangle="346, 484, 97, 20" ElementType="Text" FriendlyName="'2022'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' parentid='containerConteudoPrincipal' tag='SPAN' /&gt;&quot;, ano_comp)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGUAAAAYCAYAAADjwDPQAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFVSURBVGhD7ZYxboQwEEU5oy/jjnP4KGgrlDqp0EqR0qWj2PgIDmPsYWwDQUrBFP9JRoKRKf5jxnTjOIa3j2f4eb2wbl7kgXxAiqLVSAH3AykKgRSFQIpCIEUhLMV7X0mZw2BNMCYvF6ZUISYnak5UJif2mGCHORWqPcYGUQIC8kA+WinzEKwIOwaa7yl4OyzaiFXeVhJh0zs4/Ck43kMlK94BJMdSakhESp4EyQ6IActuYUjYQUeQMEjZ5aKUtRuyCJJSOBDCCuIoK8depug8UHBJSh3gJSnF6CrB6DrnTyl7XzQ9Ox1fEPIvTqQsB3P198ScHPQx9N2Rlf7m6o4CDcdS4nmwhFis7euPHZSfc9Ap+GJPqsfuaWtw1HLSKeAuWMo3pKiBpTw/IUULLOW9f0CKEjYpXQ8pSmApX30HKUpgKf6BTtHCJmW5QIoOIEUhqxQffgG6KdUC/NNATQAAAABJRU5ErkJggg==" InformativeScreenshot="96e489fde9a7836945add6d86bcae89c.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS#' /&gt;" SearchSteps="Selector, Image" Text="2022" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into 'INPUT'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,226" sap2010:WorkflowViewState.IdRef="NTypeInto_7" Text="[result.ToString]">
+                                                              <uix:NTypeInto.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="279, 651, 148, 17" ElementType="InputBox" FriendlyName="'INPUT'" FullSelectorArgument="&lt;webctrl name='txtReceita' tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl name='txtReceita' tag='INPUT' type='text' aaname='' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAJgAAAAVCAYAAAC67CcnAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABiSURBVGhD7dKhEYBAEMBA+i8Lj6SOKwEcBnAftzuTDrLNzCVVGUxpz2D7cUrL+hwMVjAYKYORMhgpg5EyGCmDkTIYKYORMhgpg5EyGCmDkTIYKYOR+h1MWtVrMKnIYAqb6waBfG9bL87fSwAAAABJRU5ErkJggg==" InformativeScreenshot="5ab7467cf0cd1a3fdd3d7f9262dd45a1.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image" />
+                                                              </uix:NTypeInto.Target>
+                                                            </uix:NTypeInto>
+                                                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into 'Informações Complementa…'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,226" sap2010:WorkflowViewState.IdRef="NTypeInto_8" Text="[&quot;ICMS - Ref. ao MES &quot;+ v_ICMS+&quot;/&quot;+now.tostring(&quot;yyyy&quot;)]">
+                                                              <uix:NTypeInto.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="278, 544, 500, 51" ElementType="InputBox" FriendlyName="'TEXTAREA'" FullSelectorArgument="&lt;webctrl tag='TEXTAREA' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='TEXTAREA' type='' aaname='' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAfgAAAA3CAYAAADg4ViqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE0SURBVHhe7dnBCcJQFEVBq02h7l1aR0qIfNEgwej6H2bg8ko4i3dZ13UzMzOz1gTezMwsuD3w19vdzMzMJt/XwAMA8xJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAgSeAAIEngACBJ4AAhZluV5BR4AIt5xHwQeAAI+4z4IPABM7hj3QeABYGLHuPvBA8DkzuI+CDwATOhX3AeBB4DJ/Iv7IPAAEHQaeDMzM5t7e+Bf0QcAQgQeAHK27QGVoP7osTu8+gAAAABJRU5ErkJggg==" InformativeScreenshot="9c145ba01fed52a17c578a0199aa5b52.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image">
+                                                                  <uix:TargetAnchorable.Anchors>
+                                                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                                      <uix:Target DesignTimeRectangle="86, 563, 168, 13" ElementType="Text" FriendlyName="'Informações Complementa…'" FullSelectorArgument="&lt;webctrl id='lbltxtInformacoes' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl id='lbltxtInformacoes' tag='SPAN' type='' aaname='Informações Complementares:' check:text='Informações Complementares:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAKwAAAARCAYAAABAZUdzAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMtSURBVGhD7VhLrtswDMz5fCifxCfJttsiiwABAmSXC+QIeiL1G44kx3hpm7hPi0FhiSI5w7Hi18Pj8XADA3vBMOzArjAMO7ArDMMO7AqvG/Y4u9+Hg8fkLtfG/jtwXdxJepoWd39c3WWWfxtxu8HRnQ+zuzX3fhYqw96XKRrQYz6avRreDNPBnY+tvffhvsz68iQup+XajPsW0suQ8S9e1A8wrPJ+/0vTvGF10E/NKhAhP+hm/duIZjUvqKxt0uoVDMMmbDLsbfa31DyXm0V/asN6vmniWvlEgLUqhzf5LxFgcid/Q4d4Mb4MJj0nccItnnMa0Wgv9WxuQSuy6Tlz7OQhKIeV2xpzl7jwUheeYnisV174oPvc0IAMa/iV89rfZH8h8RfT9I5zMnUmd575DOmTPrVwDfpjHvqCd3q2fcC6xsNzxGbDFvOFRsMtEwj2imAem6MTm0ljDQvOiUO4eZFu2hOcFUFi3RYviavWF+gzo9+TQHN0NaJ+gDdysBqEvdAXGraheaxb4lMc6AM6BO1LHd3LdeAMxvEZAmrIPPo91+uXpJPWg72I7TesMQYOA5Jm4vEZSHIOFmC1pg5Z3sAIjRNT1ISKGGmt9KgDxTweWiPlN+cY64YtmgQUPg2NoE41aNQvx0oONA7zaGlcmyHrzXoKWgaq6pZ55f4wR49Ht+egqTz3dGV8vmE1rtQocd8zrOmBkYWlwUSsnS+aBJQ+Gxq9bNgt/VFdPEc9FNCZtbr6XGJXeaz0nCC9i3FX5+PxZw27QoJzMIluTYpTYp2cmz4JSHT5Cbr5bzY7JHwGaC90G8ia70dzZxPwJwHk22zYkCPwA+NEfoZ3/ISxelBd1LHi4WstUpe5Q10833jGufAsuz1H7dKaOaf56zlUhtVDPrkiHq6N0RmGQAaSzsNgOAcTZpIYr2LEnPpHRY4rPykKQzatg8iUK39LYs8epk+GyS2goVU5SKNnhsXcmScYR8A9xDirMdUlvduceZ62buYX++/NhWepaPZM86s4krc8mjfsHpH+77W1txc0Bz1gsHvD5lsJbq29Yhj2Of6bG3bgZ2AYdmBHeLgvwMJuLbh/OnMAAAAASUVORK5CYII=" SearchSteps="FuzzySelector, Image" Text="Informações Complementares:" TextMethod="AttributeText" TextSelector="&lt;webctrl tag='SPAN' type='' /&gt;" />
+                                                                    </scg:List>
+                                                                  </uix:TargetAnchorable.Anchors>
+                                                                </uix:TargetAnchorable>
+                                                              </uix:NTypeInto.Target>
+                                                            </uix:NTypeInto>
+                                                            <uix:NClick ClickType="Single" DisplayName="Click 'IMG'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_15" KeyModifiers="None" MouseButton="Left">
+                                                              <uix:NClick.Target>
+                                                                <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="86, 647, 80, 20" ElementType="Icon" FriendlyName="'IMG'" FullSelectorArgument="&lt;webctrl name='btnPagarViaInternet' tag='IMG' /&gt;" FuzzySelectorArgument="&lt;webctrl name='btnPagarViaInternet' tag='IMG' type='' aaname='Gerar DAE' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFQAAAAYCAYAAABk8drWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANmSURBVGhD7ZbPK71PFMdtrcnSz42SKEJCkcRGQqRISJSUWChRykJJfmQhP2IhkpWNUrKQbKxsLCxs/Rvz7XXqTPPMnWu+9/O5u88z9eqZOed9zpxz7vVcBSZdeV3pQPO8EgMtKChI+QPcZU84Njc3zc/PT0qOuEPNGOj393dKDkQH+vX1lZID0YF+fn6m5EB0oB8fHxnc3t6asbEx09HRIaysrJjX11frPzs7E5uP5svmf3h4sDkUYvb29jLsofiQTvm/WmrA7/YDsZ6U6EDf398TbGxsmJKSErO0tGSOj4/Nzs6OGRkZMfX19eb5+Vk0+Nra2uTpQmw2PznIe39/b+9iT15Qm1JYWJiIh6qqKjMzM5OhDenJif7q6iqhow5q01oVYn7rSYkO9O3tzfL4+ChNX15eJuwwPDxs1tbWZL+4uCj4GiWbf2pqKmFnT07smlthQO4ZqC9kh5Cd/HV1dfZMPGeelZWVGdpQzT7Rgb68vFhWV1fN0NBQwhZiYWFBCPkgm7+np0fu0DNN8Sd4fn5uWltbE1oG5J4BHTG+HUJ6QM8rjD13T05Oyp5aDg4OrC7WkxId6NPTk2V+fl5wbfzJ7O7uCrwCVEcDPhrLs6KiwrS0tFg4j4+P27zk6+7utufa2lq5S8/kc+M1h9bggz5kJ467dK/x9D4wMGB1sZ6U6ED5hiizs7OCa+M90tzcbGpqauSZTeeCr7+/32xvbwvkKC8vN0dHR1aDv6ury+YiNz+E6qcZjQe0xKjfB33ITt3EX1xcmOLiYnsfEHN3dyc6tfnxPtGB8sOg7O/vm7KysoRN2draMk1NTbKfnp4WfI0S8ru5r6+vpTnVKdjwoaFZNx46OzvlPefbIaQ/PT2VnOxHR0cl3r2PfnjiV5sbHyI6UD4hl8bGRtPX12dubm4svLva29tNQ0ODnCcmJgRX45LNX11dLd+Wubk509vbm+HHho89A/L9y8vLUodvB1+Plvu0jtLSUnN4eJjQcMbO/ree3PlEB+oHMzwaKyoqkgECey5zB0oDIdQfKg7b4OCgHazvX19fFx97zeVDLdTo2/06yKMfzm8fBD3hj/WkRAfKD0GIk5MT+VcGQv5/lT8eaEqYdKB5Jh1onokONCU3sg6UhSMld9yVPKXrr1c60LwuY/4DVkcnTZPQi/gAAAAASUVORK5CYII=" InformativeScreenshot="fb5e95a25f8e4a5a6cf9ae4c6b3eab13.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image">
+                                                                  <uix:TargetAnchorable.Anchors>
+                                                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                                      <uix:Target DesignTimeRectangle="180, 647, 80, 20" ElementType="Icon" FriendlyName="'IMG'" FullSelectorArgument="&lt;webctrl name='btnDesistir' tag='IMG' /&gt;" FuzzySelectorArgument="&lt;webctrl name='btnDesistir' tag='IMG' type='' aaname='Desistir' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFQAAAAYCAYAAABk8drWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAM5SURBVGhD7Za7SytBFMbTWouWorERQ1QQovgIBCwURcSAQdBCRa0ESQJKsBAUBBEfWIhoJwSxSZqAIBYiNlY2Fha2/hvn8h04y+zsrLPxhvuAGfgxZ85rTr64G2PkVkOXE7TByydoLBZz/AB1eScEdnd36evry1EnqqgBQT8/Px11YBX04+PDUQdWQd/f3x11YBX07e0tMrVajQqFgo/b21tfDnrqOeDq6srLwTmdTjNra2vcV61Xz+g/Pz/PuZOTk76Z9TsEuQu25Jrmgu/5+dnLiYJV0NfX18hcXFxQZ2cnbW5uMisrK3weGRmhx8dHzoE9Nzfn5QioRRw1ExMTdHh4yD7EWltbqVqtevWSC5/cBx9q+vr6uAfi0hv3qXNJfVNTE+/SV58LPvSTnChYBX15eYnM+fk5DQ8PB/zj4+O0tLTENuLI03MEfEjdt7GxQaVSiW21Hn6g5t7f3wdmCJtLvStsrt7e3m/n1bEK+vT0FJnT01MaGhoK+PFYxuNxthFHnp4j9PT0UDabpevra2Ncrd/f3+e+W1tb/BrQc4WwuSCo2Ka50BP9Mb/q/w6roA8PD5E5OjqiwcFBYwzDY0cctg5qEa9UKjQzM0MtLS3M2NiYbw7USy5ALJlMcg/sCwsL3EPiIGwu1IiNOOqxCx0dHVQsFn01NqyC4luKysHBAQ0MDAT8d3d3PDxsxJGn55jAo7a6ukrt7e28wxdWjzt2dnZoenqa83GWWNhcMhNAHHcgF8BOJBK+PlGwCooXf1T29vYolUoF/HjPZTIZthFHnp4DTk5OaGpqKuDf3t72+qr1uVzO2Ku7u9vnD5sLgoptmmt5edk4z3dYBcU3ZKJcLgfAX0h/f793xntwfX2dmpubOQYf4mKbQC5qVN/s7Cz/sMFW6xcXF6mrq4vvkdyzszPugV18+lwCBBXbNBf6opfqM6HqYhXU1CAMDIQhVUZHR32DYnA9B8gHxuPW1tbGwCe7iKZ/cIgt9cD0hfxUUID58/l8wB+GVdCbm5u/An7B8a/S8fGxMa5yeXnJucAU/5P8s4L+rzhBG4wTtMFYBXXUR6igWAg46kdd/pNbv72coA1dRL8AxkRrLdOB+psAAAAASUVORK5CYII=" SearchSteps="FuzzySelector, Image" />
+                                                                    </scg:List>
+                                                                  </uix:TargetAnchorable.Anchors>
+                                                                </uix:TargetAnchorable>
+                                                              </uix:NClick.Target>
+                                                            </uix:NClick>
+                                                            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="MessageBox_12" Text="[data_vencimento2]" />
+                                                          </Sequence>
+                                                        </Sequence>
+                                                      </ActivityAction>
+                                                    </uix:NApplicationCard.Body>
+                                                    <uix:NApplicationCard.TargetApp>
+                                                      <uix:TargetApp BrowserType="Chrome" IconBase64="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" InformativeScreenshot="eb09b944cb1c29b739d7a981d28a4193.png" Selector="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR'/&gt;" Url="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR" />
+                                                    </uix:NApplicationCard.TargetApp>
+                                                  </uix:NApplicationCard>
+                                                </Sequence>
+                                              </Sequence>
+                                            </uix:NCheckState.IfExists>
+                                            <uix:NCheckState.IfNotExists>
+                                              <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="250,116" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <Throw Exception="[new Exception]" sap:VirtualizedContainerService.HintSize="208,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                                              </Sequence>
+                                            </uix:NCheckState.IfNotExists>
+                                            <uix:NCheckState.Target>
+                                              <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR" DesignTimeRectangle="50, 120, 120, 64" ElementType="Icon" FriendlyName="'IMG'" FullSelectorArgument="&lt;webctrl parentid='logo' tag='IMG' /&gt;" FuzzySelectorArgument="&lt;webctrl parentid='logo' tag='IMG' type='' aaname='Intranet SEF - Secretaria de Estado de Fazenda' /&gt;" ImageBase64="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" InformativeScreenshot="413c435f6f751485c000e3dbfe1fb5bc.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR' /&gt;" SearchSteps="FuzzySelector" />
+                                            </uix:NCheckState.Target>
+                                          </uix:NCheckState>
+                                        </Sequence>
+                                      </ActivityAction>
+                                    </uix:NApplicationCard.Body>
+                                    <uix:NApplicationCard.TargetApp>
+                                      <uix:TargetApp BrowserType="Chrome" IconBase64="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" InformativeScreenshot="6fd71b2bc07eef71c7ec81edece503cb.png" Selector="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR'/&gt;" Url="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DOCUMENTO_ARRECADACAO?ACAO=VISUALIZAR" />
+                                    </uix:NApplicationCard.TargetApp>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </uix:NApplicationCard>
+                                  <FlowStep.Next>
+                                    <FlowStep x:Name="__ReferenceID0">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <av:Point x:Key="ShapeLocation">200,206.04</av:Point>
+                                          <av:Size x:Key="ShapeSize">200,66</av:Size>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <Sequence DisplayName="Save" sap:VirtualizedContainerService.HintSize="476,1141" sap2010:WorkflowViewState.IdRef="Sequence_58">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" sap:VirtualizedContainerService.HintSize="434,1049" sap2010:WorkflowViewState.IdRef="NApplicationCard_4" InteractionMode="Simulate" Version="V1">
+                                          <uix:NApplicationCard.Body>
+                                            <ActivityAction x:TypeArguments="x:Object">
+                                              <ActivityAction.Argument>
+                                                <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+                                              </ActivityAction.Argument>
+                                              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,833" sap2010:WorkflowViewState.IdRef="Sequence_57">
+                                                <Sequence.Variables>
+                                                  <Variable x:TypeArguments="x:String" Name="v_SAVE_FILE" />
+                                                </Sequence.Variables>
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <uix:NClick ClickType="Single" DisplayName="Click 'IMG'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_16" KeyModifiers="None" MouseButton="Left">
+                                                  <uix:NClick.Target>
+                                                    <uix:TargetAnchorable BrowserURL="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" DesignTimeRectangle="86, 501, 90, 50" ElementType="Icon" FriendlyName="'IMG'" FullSelectorArgument="&lt;webctrl name='btnVisualizarImprimir' tag='IMG' /&gt;" FuzzySelectorArgument="&lt;webctrl name='btnVisualizarImprimir' tag='IMG' type='' aaname='Visualizar/Imprimir DAE' /&gt;" ImageBase64="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" InformativeScreenshot="89ce701f893943988c9f033cbe4815e8.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS' /&gt;" SearchSteps="FuzzySelector, Image" />
+                                                  </uix:NClick.Target>
+                                                </uix:NClick>
+                                                <Assign sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="Assign_18">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:String">[v_SAVE_FILE]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:String">[now.ToString(DateTime.Now.AddMonths (-1) .ToString("MM")+"."+"yyyy").ToString]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'File name:'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,226" sap2010:WorkflowViewState.IdRef="NTypeInto_9" InteractionMode="HardwareEvents" Text="[Diretorio_Destino+Ano+&quot;\&quot;+Mes_Anterior+&quot;\PC12\PDF\&quot;+&quot;ICMS_&quot;+row(&quot;Filial-Lojas&quot;).tostring+&quot;_&quot;+v_SAVE_FILE.ToString+&quot;.pdf&quot;+&quot;[k(tab)]&quot;+&quot;[k(tab)]&quot;+&quot;[k(tab)]&quot;+&quot;[k(enter)]&quot;]">
+                                                  <uix:NTypeInto.Target>
+                                                    <uix:TargetAnchorable DesignTimeRectangle="136, 372, 456, 17" ElementType="InputBox" FriendlyName="'ARRECADACAO_16487798815…'" FullSelectorArgument="&lt;wnd aaname='Explorer Pane' cls='DirectUIHWND' /&gt;&lt;wnd aaname='File name:' cls='ComboBox' /&gt;&lt;wnd ctrlid='1001' /&gt;" FuzzySelectorArgument="&lt;wnd aaname='Explorer Pane' cls='DirectUIHWND' /&gt;&lt;wnd aaname='File name:' cls='ComboBox' /&gt;&lt;wnd ctrlid='1001' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAcwAAAAVCAYAAADLnd7VAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPYSURBVHhe7ZrBbRwxDEXTU7pJAWnDdeS297SQy96DlBDADaQFR5RF4Q+H0mg9gMcG3gM+sCNKJLUL8HuCfHkBAACAQzBMAACABVLD/PoDoY+r39/5Ow8A3h8ME306YZgAcAUYJvp0wjAB4AoODfPpb1ko0jXT/XVr5/7rfMx0+9cCRvn8TWKm1X6e/+z3mEbnXW+tX1Xuoox62KmdewrrtVbj9nMb+1Zyb/qT2l637km4DdZr/STPKP90XWJ6r9hTvPPuXqaQB8MEgCuYG2YZ0s9leN2L4sA2g+prYaAtx1RWq8Q2BlrWbuF5qZ/2vDO2yfmz9f2eum7me2Sa1aBLn9avmoeZ5exsvV8568ai94/fhcvMKMvZ1+1+0sco58rn2b3iH0kq26/3yvJgmABwBVPD9EGaDVodjvH5kZjLBuNskJoe6ScOf9Ps/Nn66fmkh5Gsf91nphzfbl1W/249+B6rI/tHphRrxPV4r/48yr9QN9a0Pdnvb9rdS6R5MEwAuIKpYZoJ1OEWBqMPsD74ypAcve1MYy7LX9azYa5a7qcpmtjwvD2fqT85388kMZUaQv3O2ltVJdYqsdiD1tnkcpWc0eTj+tAwy+dR/qO6cc32O5t+BvdyaR4MEwCuYGyYYXDFwW8DrGODrq0/FCvUITgYkhst9KPPvqcb5ux8iKV64/lNDxOpIVTDlPvYW9nOuGJNe349ltbb9Dtab3W9D4t1UxvlP6i7uVeQ/mbDe8leDBMArmRomNnbhppfH3ZtYOpQXIrJWrYvarmf9mxSM5ieP1t/cn5kVFFqCP6G2ePtedOD1XRj0c9Fu38atbjmm6zXezXuJVbrjfIf1S3a3CvI/xAY3kukeTBMALiCoWHagMrwoaUGFc1kNaYyY8neUFyP9FNlgzfEMzx+tn56PvQwk+Xv+0qezDDTHkrdp/Adx/P2G2R3G6273ADjb5gauKz356LNvYI8/+heapqaB8MEgCvIDdMGXxhYJjUFG2BqUPr8SKzLahY2A7zsq/9L9Y399FwL58/W9/NqDtbDxlAmsr3xrN9naMbeU+jP39x8r53PvvPRepXmHOU/qGuK9+qy/ktsV1/vJdI8GCYAXEE6ebLBZ7I3Cn+D0IHeY23QHcWUTZ02RDvtzGo/itZfOV91on6VGYiwM7mJ1BCqtBetoXExltqLE/bvck/W9XvU2Cj/rK4p1tD86fcT7uXSPBgmAFxB/oYpgwqhjyYMEwCuAMN8J+mblZO99aFjYZgAcAUYJvp0wjAB4AqYPAAAAAtgmAAAAAtgmAAAAAtgmAAAAIe8vPwHSIO8CPRz8KIAAAAASUVORK5CYII=" InformativeScreenshot="3881cb7fe7394ed529aaa161c81a7a32.png" ScopeSelectorArgument="&lt;wnd app='chrome.exe' cls='#32770' title='Save As' /&gt;" SearchSteps="Selector, FuzzySelector, Image" Text="ARRECADACAO_1648779881541" TextMethod="AttributeText" TextSelector="&lt;wnd /&gt;">
+                                                      <uix:TargetAnchorable.Anchors>
+                                                        <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                          <uix:Target DesignTimeRectangle="18, 369, 115, 23" ElementType="Text" FriendlyName="'File name:'" FullSelectorArgument="&lt;wnd aaname='Explorer Pane' cls='DirectUIHWND' /&gt;&lt;ctrl name='Explorer Pane' role='pane' /&gt;&lt;ctrl name='Folder Layout Pane' role='pane' /&gt;&lt;ctrl name='Details Pane' role='pane' /&gt;&lt;ctrl name='File name:' role='text' /&gt;" FuzzySelectorArgument="&lt;wnd aaname='Explorer Pane' cls='DirectUIHWND' /&gt;&lt;ctrl name='Explorer Pane' role='pane' /&gt;&lt;ctrl name='Folder Layout Pane' role='pane' /&gt;&lt;ctrl name='Details Pane' role='pane' /&gt;&lt;ctrl name='File name:' role='text' automationid='' check:text='File name:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAHcAAAAbCAYAAABGDxCrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFHSURBVGhD7ZXBcQMhDEUpKGfqYdIMB5dCL9RCBwpagy1kbdb2bbU/M28GMBKMXtCG1hoBn0CuYyDXIT+/tw3IdQiL5T/IdQjkOgZyHQO5joFcx1xQbqEUAgVBzJVazRRDpFznnjk+LxeVeyQOck8K5DpmT5xcV3u2lj3beKKyxDFjf05rqx+/l/T8BIRU1pjyzJ1Ko5qjmcO8Q+nnxUx17lHgm9vhou7LleNOL+hSdJlziuOi//dP8MjbY6acLUYIXXLs3IH3QK5EFcpcF+PlxQwer8+KNeZD3B3jjKMcb93hFcg113VhrVcoORIz4yvlaJzxUY73gVxzXY/V9+8FnVPMZevcJFlnHM15bNwBbVmji2itqz26LX7Ulvm1jriYKH3zcnlu3QFyrwvkOgZyHQO5joFcx0CuYyDXMSyXgVzHQK5bGv0BOlpJlziMvLsAAAAASUVORK5CYII=" SearchSteps="Selector, FuzzySelector, Image" Text="File name:" TextMethod="AttributeText" TextSelector="&lt;ctrl role='text' /&gt;" />
+                                                        </scg:List>
+                                                      </uix:TargetAnchorable.Anchors>
+                                                    </uix:TargetAnchorable>
+                                                  </uix:NTypeInto.Target>
+                                                </uix:NTypeInto>
+                                                <uix:NClick ClickType="Single" DisplayName="Click 'unchecked'" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_17" InteractionMode="HardwareEvents" KeyModifiers="None" MouseButton="Left">
+                                                  <uix:NClick.Target>
+                                                    <uix:TargetAnchorable DesignTimeRectangle="412, 438, 88, 26" ElementType="Button" FriendlyName="'unchecked'" FullSelectorArgument="&lt;wnd ctrlid='1' title='&amp;amp;Save' /&gt;" FuzzySelectorArgument="&lt;wnd ctrlid='1' title='&amp;amp;Save' check:text='unchecked' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFwAAAAeCAYAAAChf3k/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFBSURBVGhD7ZbJccMwDEVZE89phMVwUgmLSAPsRD2oAwTgYoOWMrnYMDT+hzdaQF0ewE+Ffd8J2AHhxkC4MYvwr+8f8AK044PwbdvAE4FwYyDcGAg3BsKNgXBjfAsviUIIg0TlbM3F8Cu8ZopaMj/nouoXxa9wme6YqZ7VLoxf4VuhxFEScz3USpoxw6TC7yrlGCjpHaAb1naLj2hyLFzoIkXUIvOGNCVSrnwvgpv8XpOm9G/UGqnxurMmWuFc+GBM6E36cphOmSJ2Ti/fn073QDXGmmsIZ2qOXdRymMoOuE+vrJHpndf27bL+/fgVXvivZMbAiJYm8ZDNKi7kOSaebi3477PgHTie8C7qGAP3XA9NrhI+a4+R8RgriJTPAcKNgXBjINwYCDcGwo2BcGP+FQ6ej3a8CAevB8KNgXBTdvoF52qxLaXuOdgAAAAASUVORK5CYII=" InformativeScreenshot="60afa0fb6f972bd6f19accb10c2f34b3.png" ScopeSelectorArgument="&lt;wnd app='chrome.exe' cls='#32770' title='Save As' /&gt;" SearchSteps="Selector, FuzzySelector, Image" Text="unchecked" TextMethod="AttributeText" TextSelector="&lt;wnd /&gt;" />
+                                                  </uix:NClick.Target>
+                                                </uix:NClick>
+                                              </Sequence>
+                                            </ActivityAction>
+                                          </uix:NApplicationCard.Body>
+                                          <uix:NApplicationCard.TargetApp>
+                                            <uix:TargetApp BrowserType="Chrome" IconBase64="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" InformativeScreenshot="227aa2df35b97f58651ea1e000df6bbb.png" Selector="&lt;html app='chrome.exe' title='https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS'/&gt;" Url="https://www2.fazenda.mg.gov.br/arrecadacao/ctrl/ARRECADA/ARRECADA/DAE_ICMS" />
+                                          </uix:NApplicationCard.TargetApp>
+                                        </uix:NApplicationCard>
+                                      </Sequence>
+                                    </FlowStep>
+                                  </FlowStep.Next>
+                                </FlowStep>
+                                <x:Reference>__ReferenceID0</x:Reference>
+                              </Flowchart>
+                            </FlowStep>
+                          </FlowDecision.False>
+                        </FlowDecision>
+                      </FlowDecision.False>
+                    </FlowDecision>
+                    <x:Reference>__ReferenceID2</x:Reference>
+                    <x:Reference>__ReferenceID3</x:Reference>
+                  </Flowchart>
+                  <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="744,59" sap2010:WorkflowViewState.IdRef="MessageBox_8" Text="[&quot;LI O STATE&quot;]" />
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEachRow.Body>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ForEachRow>
+        </State.Entry>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">193,119.5</av:Point>
+            <av:Size x:Key="ShapeSize">134,61</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">100</x:Double>
+            <x:Double x:Key="StateContainerHeight">25</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <State.Transitions>
+          <Transition DisplayName="T1" sap2010:WorkflowViewState.IdRef="Transition_6">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:PointCollection x:Key="ConnectorLocation">266.7,180.5 266.7,209.5</av:PointCollection>
+                <x:Int32 x:Key="SrcConnectionPointIndex">43</x:Int32>
+                <x:Int32 x:Key="DestConnectionPointIndex">42</x:Int32>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Transition.To>
+              <State x:Name="__ReferenceID5" DisplayName="PC18" sap:VirtualizedContainerService.HintSize="134,61" sap2010:WorkflowViewState.IdRef="State_7">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <av:Point x:Key="ShapeLocation">193,209.5</av:Point>
+                    <av:Size x:Key="ShapeSize">134,61</av:Size>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <State.Transitions>
+                  <Transition DisplayName="T2" sap2010:WorkflowViewState.IdRef="Transition_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <av:PointCollection x:Key="ConnectorLocation">266.7,270.5 266.7,299.5</av:PointCollection>
+                        <x:Int32 x:Key="SrcConnectionPointIndex">43</x:Int32>
+                        <x:Int32 x:Key="DestConnectionPointIndex">42</x:Int32>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Transition.To>
+                      <State x:Name="__ReferenceID6" DisplayName="PC19" sap:VirtualizedContainerService.HintSize="134,61" sap2010:WorkflowViewState.IdRef="State_6">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <av:Point x:Key="ShapeLocation">193,299.5</av:Point>
+                            <av:Size x:Key="ShapeSize">134,61</av:Size>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <State.Transitions>
+                          <Transition DisplayName="T3" sap2010:WorkflowViewState.IdRef="Transition_4">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <av:PointCollection x:Key="ConnectorLocation">327,333.05 357,333.05 357,333 410,333</av:PointCollection>
+                                <x:Int32 x:Key="SrcConnectionPointIndex">40</x:Int32>
+                                <x:Int32 x:Key="DestConnectionPointIndex">37</x:Int32>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Transition.To>
+                              <State x:Name="__ReferenceID7" DisplayName="Final State" sap:VirtualizedContainerService.HintSize="134,61" sap2010:WorkflowViewState.IdRef="State_5" IsFinal="True">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <av:Point x:Key="ShapeLocation">410,302.5</av:Point>
+                                    <av:Size x:Key="ShapeSize">134,61</av:Size>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </State>
+                            </Transition.To>
+                          </Transition>
+                        </State.Transitions>
+                      </State>
+                    </Transition.To>
+                  </Transition>
+                </State.Transitions>
+              </State>
+            </Transition.To>
+          </Transition>
+        </State.Transitions>
+      </State>
+      <x:Reference>__ReferenceID5</x:Reference>
+      <x:Reference>__ReferenceID6</x:Reference>
+      <x:Reference>__ReferenceID7</x:Reference>
+      <StateMachine.Variables>
+        <Variable x:TypeArguments="ui:GenericValue" Name="decVal" />
+        <Variable x:TypeArguments="ui:Browser" Name="v_BROWSE" />
+        <Variable x:TypeArguments="ui:GenericValue" Name="out_value" />
+        <Variable x:TypeArguments="ui:UiElement" Name="site_open" />
+        <Variable x:TypeArguments="sd:DataTable" Name="kuso" />
+        <Variable x:TypeArguments="x:String" Name="mes_val" />
+        <Variable x:TypeArguments="x:String" Name="mes_val2" />
+      </StateMachine.Variables>
+    </StateMachine>
+  </Sequence>
+</Activity>

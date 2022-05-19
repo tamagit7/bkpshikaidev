@@ -1,0 +1,57 @@
+{
+  "Type": "CustomForm",
+  "Name": "CustomForm",
+  "Text": "CustomForm",
+  "Width": 676,
+  "Size": "676, 506",
+  "Location": "0, 0",
+  "Font": "Microsoft Sans Serif, 8.25pt",
+  "BackColor": "Control",
+  "Controls": [
+    {
+      "Type": "CustomCheckBox",
+      "Name": "CE12",
+      "Text": "CE12",
+      "Size": "104, 24",
+      "Location": "48, 98",
+      "Font": "Microsoft Sans Serif, 14.4pt",
+      "BackColor": "Control",
+      "ExposeAsArgument": false
+    },
+    {
+      "Type": "CustomTextbox",
+      "Name": "CustomTextbox1",
+      "Text": "",
+      "Size": "100, 20",
+      "Location": "100, 236",
+      "Font": "Microsoft Sans Serif, 10pt",
+      "Multiline": false,
+      "BackColor": "Window",
+      "ExposeAsArgument": false,
+      "UseSystemPasswordChar": false
+    },
+    {
+      "Type": "CustomCheckBox",
+      "Name": "CustomCheckBox1",
+      "Text": "",
+      "Size": "104, 24",
+      "Location": "47, 74",
+      "Font": "Microsoft Sans Serif, 14.4pt",
+      "BackColor": "Control",
+      "ExposeAsArgument": false
+    },
+    {
+      "Type": "CustomCheckBox",
+      "Name": "CustomCheckBox2",
+      "Text": "",
+      "Size": "104, 24",
+      "Location": "46, 49",
+      "Font": "Microsoft Sans Serif, 14.4pt",
+      "BackColor": "Control",
+      "ExposeAsArgument": false
+    }
+  ],
+  "ShowInTaskbar": true,
+  "CanResize": true,
+  "OnLoadWorkflowPath": null
+}
