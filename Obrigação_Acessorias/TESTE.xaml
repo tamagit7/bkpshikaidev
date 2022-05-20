@@ -1,0 +1,232 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="TESTE" this:TESTE.in_DIR_SAVE="G:\My Drive\UIPATH\COMPARTILHADO-CENTAURO\PRODUÇÃO\FISCAL\EMISSAO_GUIAS_PAGAMENTO\PARCELAMENTOS\AM\2020\OUTUBRO\PDF\CE185\" this:TESTE.in_ESTAB="CE185" this:TESTE.in_DATA_MES_ANTERIORES="[DateTime.Now.AddMonths (-1) .ToString (&quot;MMMM&quot;, new System.Globalization.CultureInfo(&quot;pt-PT&quot;)).ToUpper]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_READ_ESTAB" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_TABELA_FINAL" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_TESTE" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="eu" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="eu2" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_FINALPAGINA" Type="InOutArgument(x:String)" />
+    <x:Property Name="in_GET_PAGINA" Type="InOutArgument(x:Int32)" />
+    <x:Property Name="in_NUMERO" Type="InOutArgument(x:Int32)" />
+    <x:Property Name="in_SOMA" Type="InOutArgument(x:Int32)" />
+    <x:Property Name="in_GETPAGINA" Type="InOutArgument(x:Int32)" />
+    <x:Property Name="in_GETPAGINA_INT" Type="InOutArgument(x:Int32)" />
+    <x:Property Name="in_TABLEROW" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_CNPJ" Type="InArgument(x:String)" />
+    <x:Property Name="in_INSCRICAO" Type="InArgument(x:String)" />
+    <x:Property Name="in_LEITURA_INSCRICAO" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="v_NUMERO_INCRICAO" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_SETA_INSCRICAO" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_PENDENCIA" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_NAOENCONTRADO" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_SITATIVO" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_BROWSE" Type="InArgument(ui:Browser)" />
+    <x:Property Name="in_VOLTA_INSCRICAO" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_CLOSE1" Type="InArgument(ui:Browser)" />
+    <x:Property Name="in_BROWSER_CLOSE1" Type="InArgument(ui:Browser)" />
+    <x:Property Name="in_DIR_SAVE" Type="InArgument(x:String)" />
+    <x:Property Name="in_APAGADB" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="argument1" Type="InArgument(x:String)" />
+    <x:Property Name="v_LINHAS" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="v_ISLEAF" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="CLICKPDF" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_ESTAB" Type="InArgument(x:String)" />
+    <x:Property Name="in_GERACAO" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_UF" Type="InOutArgument(ui:GenericValue)" />
+    <x:Property Name="in_dt_FILTER" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_READ_FILTER" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_outros_escolha" Type="InOutArgument(ui:GenericValue)" />
+    <x:Property Name="in_READPE" Type="InOutArgument(x:String)" />
+    <x:Property Name="in_LOJAERRO" Type="InOutArgument(x:Boolean)" />
+    <x:Property Name="in_FILIALSEL" Type="InOutArgument(x:Boolean)" />
+    <x:Property Name="in_GIA" Type="InOutArgument(x:Boolean)" />
+    <x:Property Name="in_SATI" Type="InArgument(x:String)" />
+    <x:Property Name="in_DATA_MES_ANTERIORES" Type="InArgument(x:String)" />
+    <x:Property Name="a_PLANILHA_ROW" Type="InArgument(ui:GenericValue)" />
+    <x:Property Name="in_dt_SEL_UF" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_dt_SELECIONA" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_dt_PLAN_SEL" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_dt_SAIDAJOIN" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_dt_PLANILHA_FINAL" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_PATH_EXIST" Type="InArgument(x:Boolean)" />
+  </x:Members>
+  <this:TESTE.in_READ_ESTAB>
+    <InArgument x:TypeArguments="sd:DataTable" />
+  </this:TESTE.in_READ_ESTAB>
+  <this:TESTE.in_TABELA_FINAL>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.in_TABELA_FINAL>
+  <this:TESTE.in_TESTE>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.in_TESTE>
+  <this:TESTE.eu>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.eu>
+  <this:TESTE.eu2>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.eu2>
+  <this:TESTE.in_TABLEROW>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.in_TABLEROW>
+  <this:TESTE.in_CNPJ>
+    <InArgument x:TypeArguments="x:String" />
+  </this:TESTE.in_CNPJ>
+  <this:TESTE.in_INSCRICAO>
+    <InArgument x:TypeArguments="x:String" />
+  </this:TESTE.in_INSCRICAO>
+  <this:TESTE.in_LEITURA_INSCRICAO>
+    <InArgument x:TypeArguments="sd:DataTable" />
+  </this:TESTE.in_LEITURA_INSCRICAO>
+  <this:TESTE.v_NUMERO_INCRICAO>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.v_NUMERO_INCRICAO>
+  <this:TESTE.in_SETA_INSCRICAO>
+    <InArgument x:TypeArguments="x:Boolean" />
+  </this:TESTE.in_SETA_INSCRICAO>
+  <this:TESTE.in_PENDENCIA>
+    <InArgument x:TypeArguments="x:Boolean" />
+  </this:TESTE.in_PENDENCIA>
+  <this:TESTE.in_NAOENCONTRADO>
+    <InArgument x:TypeArguments="x:Boolean" />
+  </this:TESTE.in_NAOENCONTRADO>
+  <this:TESTE.in_SITATIVO>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.in_SITATIVO>
+  <this:TESTE.in_BROWSE>
+    <InArgument x:TypeArguments="ui:Browser" />
+  </this:TESTE.in_BROWSE>
+  <this:TESTE.in_VOLTA_INSCRICAO>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.in_VOLTA_INSCRICAO>
+  <this:TESTE.in_CLOSE1>
+    <InArgument x:TypeArguments="ui:Browser" />
+  </this:TESTE.in_CLOSE1>
+  <this:TESTE.in_BROWSER_CLOSE1>
+    <InArgument x:TypeArguments="ui:Browser" />
+  </this:TESTE.in_BROWSER_CLOSE1>
+  <this:TESTE.in_APAGADB>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.in_APAGADB>
+  <this:TESTE.v_LINHAS>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.v_LINHAS>
+  <this:TESTE.v_ISLEAF>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.v_ISLEAF>
+  <this:TESTE.CLICKPDF>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.CLICKPDF>
+  <this:TESTE.in_GERACAO>
+    <InArgument x:TypeArguments="ui:GenericValue" />
+  </this:TESTE.in_GERACAO>
+  <this:TESTE.in_PATH_EXIST>
+    <InArgument x:TypeArguments="x:Boolean" />
+  </this:TESTE.in_PATH_EXIST>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1149,655</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>TESTE_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Globalization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="TESTE" sap:VirtualizedContainerService.HintSize="1159,550" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="variable1" />
+      <Variable x:TypeArguments="x:String" Name="variable2" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="1117,59" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[in_DATA_MES_ANTERIORES.ToString]" TopMost="True" />
+    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="1117,359" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[&quot;G:\My Drive\UIPATH\COMPARTILHADO-CENTAURO\PRODUÇÃO\FISCAL\OBRIGAÇÃO_ACESSORIAS\&quot;+ in_DATA_MES_ANTERIORES.ToString+&quot;\OUTROS\PLANILHA\PLANILHA_OBRIGACOES.xlsx&quot;]">
+      <ui:ExcelApplicationScope.Body>
+        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,250" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:ExcelReadRange AddHeaders="True" DataTable="[in_READ_ESTAB]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="[in_UF]">
+              <ui:ExcelReadRange.Range>
+                <InArgument x:TypeArguments="x:String">
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </InArgument>
+              </ui:ExcelReadRange.Range>
+            </ui:ExcelReadRange>
+            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;leu range&quot;]" TopMost="True" />
+          </Sequence>
+        </ActivityAction>
+      </ui:ExcelApplicationScope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ExcelApplicationScope>
+  </Sequence>
+</Activity>
